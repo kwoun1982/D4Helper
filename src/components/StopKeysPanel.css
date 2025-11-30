@@ -1,0 +1,116 @@
+.stop-keys-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Reduced gap */
+  padding: 6px;
+  border: 1px solid var(--border-dark);
+  background: var(--bg-secondary);
+  flex: 1;
+  min-height: 0; /* Allow flex shrink */
+}
+
+/* Inherits .section-title from global theme */
+
+.panel-subtitle {
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-style: italic;
+  margin-bottom: 5px; /* Reduced margin */
+  font-family: 'Cinzel', serif;
+}
+
+.stop-keys-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px; /* Drastically reduced gap */
+  overflow-y: auto; /* Enable scroll if needed */
+  padding-right: 3px; /* Add some padding for scrollbar */
+  flex: 1;
+  min-height: 0;
+}
+
+.stop-key-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 5px; /* Reduced padding */
+  background: transparent;
+  border: 1px solid var(--border-dark);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.stop-key-row:hover {
+  border-color: var(--border-gold);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.stop-key-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stop-key-icon {
+  font-size: 14px;
+  width: 20px;
+  text-align: center;
+  color: var(--text-red); /* Red icons in screenshot */
+}
+
+.stop-key-name {
+  font-size: 13px;
+  color: var(--text-primary);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Custom Toggle Switch */
+.diablo-toggle {
+  position: relative;
+  width: 36px;
+  height: 18px;
+  display: inline-block;
+}
+
+.diablo-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #1a0505;
+  border: 1px solid var(--border-dark);
+  border-radius: 18px;
+  transition: .4s;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #3d2020;
+  border-radius: 50%;
+  transition: .4s;
+}
+
+input:checked + .toggle-slider {
+  background-color: #2a0a0a;
+  border-color: var(--border-red);
+}
+
+input:checked + .toggle-slider:before {
+  transform: translateX(18px);
+  background-color: var(--accent-red);
+  box-shadow: 0 0 5px var(--accent-red);
+}

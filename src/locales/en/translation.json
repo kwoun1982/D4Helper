@@ -1,0 +1,57 @@
+{
+  "app": {
+    "name": "D4Helper",
+    "version": "2.1",
+    "title": "Diablo 4 Helper - Sanctuary Edition"
+  },
+  "menu": {
+    "file": "File",
+    "new": "New",
+    "save": "Save",
+    "load": "Load",
+    "settings": "Settings",
+    "language": "Language"
+  },
+  "startStop": {
+    "title": "Start/Stop Keys",
+    "startKey": "Start Key",
+    "stopKey": "Stop Key",
+    "hotkey": "F1"
+  },
+  "stopKeys": {
+    "title": "Stop Keys",
+    "subtitle": "(Match Diablo Keys)",
+    "description": "Macro will auto-stop when these keys are pressed",
+    "inventory": "Inventory",
+    "skills": "Skills",
+    "follower": "Follower",
+    "map": "Map",
+    "worldMap": "World Map",
+    "townPortal": "Town Portal",
+    "chat": "Chat",
+    "whisper": "Whisper"
+  },
+  "skillKeys": {
+    "title": "Skill Keys",
+    "interval": "Interval (msec)",
+    "empty": "Empty",
+    "clickToSet": "Click to set key"
+  },
+  "specialKey": {
+    "title": "Special Key (Hold to Pause)",
+    "keyLabel": "Key",
+    "warning": "WARNING: This key may enable specialty to pause in your selection."
+  },
+  "status": {
+    "running": "Running",
+    "stopped": "Stopped",
+    "paused": "Paused"
+  },
+  "messages": {
+    "saveSuccess": "Settings saved successfully",
+    "loadSuccess": "Settings loaded successfully",
+    "error": "An error occurred",
+    "keyRegistered": "Key registered",
+    "invalidKey": "Invalid key"
+  }
+}

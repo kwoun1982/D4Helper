@@ -1,0 +1,57 @@
+{
+  "app": {
+    "name": "D4Helper",
+    "version": "2.1",
+    "title": "Diablo 4 Helper - Sanctuary Edition"
+  },
+  "menu": {
+    "file": "文件",
+    "new": "新建",
+    "save": "保存",
+    "load": "加载",
+    "settings": "设置",
+    "language": "语言"
+  },
+  "startStop": {
+    "title": "启动/停止按键",
+    "startKey": "启动键",
+    "stopKey": "停止键",
+    "hotkey": "F1"
+  },
+  "stopKeys": {
+    "title": "停止按键",
+    "subtitle": "(匹配暗黑按键)",
+    "description": "按下这些按键时宏将自动停止",
+    "inventory": "背包",
+    "skills": "技能",
+    "follower": "追随者",
+    "map": "地图",
+    "worldMap": "世界地图",
+    "townPortal": "回城传送",
+    "chat": "聊天",
+    "whisper": "私聊"
+  },
+  "skillKeys": {
+    "title": "技能按键",
+    "interval": "间隔 (毫秒)",
+    "empty": "空",
+    "clickToSet": "点击设置按键"
+  },
+  "specialKey": {
+    "title": "特殊按键（按住暂停）",
+    "keyLabel": "按键",
+    "warning": "警告: 按住此键将暂停宏。"
+  },
+  "status": {
+    "running": "运行中",
+    "stopped": "已停止",
+    "paused": "已暂停"
+  },
+  "messages": {
+    "saveSuccess": "设置已保存",
+    "loadSuccess": "设置已加载",
+    "error": "发生错误",
+    "keyRegistered": "按键已注册",
+    "invalidKey": "无效按键"
+  }
+}

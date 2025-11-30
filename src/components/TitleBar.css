@@ -1,0 +1,72 @@
+.title-bar {
+  height: 24px;
+  background: var(--bg-header);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  border-bottom: 1px solid var(--border-red);
+  -webkit-app-region: drag; /* Allow window dragging */
+  z-index: 9999; /* Ensure it's on top */
+  position: relative;
+}
+
+.title-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-gold);
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.app-icon {
+  color: var(--accent-red);
+  font-size: 13px;
+}
+
+.title-bar-center {
+  color: var(--text-secondary);
+  font-size: 10px;
+  letter-spacing: 1px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.decoration {
+  color: var(--border-gold);
+  font-size: 10px;
+}
+
+.title-bar-right {
+  display: flex;
+  gap: 4px;
+  -webkit-app-region: no-drag; /* Buttons must be clickable */
+}
+
+.title-bar-btn {
+  background: transparent;
+  border: 1px solid var(--border-dark);
+  color: var(--text-secondary);
+  width: 20px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 10px;
+  transition: all 0.2s;
+  -webkit-app-region: no-drag; /* Explicitly set no-drag on buttons */
+}
+
+.title-bar-btn:hover {
+  border-color: var(--border-gold);
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.title-bar-btn.close:hover {
+  background: var(--accent-red);
+  border-color: var(--accent-red);
+}

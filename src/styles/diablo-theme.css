@@ -1,0 +1,81 @@
+/* === Diablo 4 Theme - Sanctuary Edition === */
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap");
+
+:root {
+  /* === Backgrounds === */
+  --bg-primary: #1a1a1a;        /* Main background (almost black) */
+  --bg-secondary: #242424;      /* Panel background */
+  --bg-tertiary: #2d2d2d;       /* Card/Box background */
+  --bg-input: #000000;          /* Input background */
+
+  /* === Borders === */
+  --border-dark: #333333;       /* Default border */
+  --border-gold: #8b7355;       /* Gold accent border */
+  --border-red: #6b3030;        /* Red accent border */
+
+  /* === Accents === */
+  --accent-green: #4a7c3f;      /* Start button green */
+  --accent-green-hover: #5a9c4f;
+  --accent-red: #7c3f3f;        /* Stop button red */
+  --accent-red-hover: #9c4f4f;
+  --accent-gold: #d4af37;       /* Standard Gold */
+
+  /* === Text === */
+  --text-primary: #e8e8e8;      /* Main text (light grey) */
+  --text-secondary: #a0a0a0;    /* Secondary text */
+  --text-gold: #c9aa71;         /* Gold text */
+  --text-red: #ff6b6b;          /* Warning/Error text */
+
+  /* === Components === */
+  --slider-track: #8b2020;      /* Slider track (dark red) */
+  --slider-thumb: #c9aa71;      /* Slider thumb (gold) */
+  
+  /* === Status === */
+  --status-active: #4ade80;
+  --status-inactive: #ef4444;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none; /* Prevent text selection for app-like feel */
+}
+
+body {
+  font-family: "Cinzel", "Noto Sans KR", serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  overflow: hidden; /* Prevent global scroll */
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Common Utility Classes */
+.panel-box {
+  border: 1px solid var(--border-dark);
+  background: var(--bg-secondary);
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.section-title {
+  color: var(--text-gold);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-slot);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-gold);
+  border-radius: 3px;
+}

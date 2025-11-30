@@ -134,3 +134,19 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Electron Build Artifacts
+release/
+dist-electron/
+*.exe
+
+# Local Logs
+build_log.txt
+rebuild_log*.txt
+
+# IDEs
+.vscode/
+.idea/
+
+# Misc
+nul

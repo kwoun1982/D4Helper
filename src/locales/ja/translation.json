@@ -1,0 +1,57 @@
+{
+  "app": {
+    "name": "D4Helper",
+    "version": "2.1",
+    "title": "Diablo 4 Helper - Sanctuary Edition"
+  },
+  "menu": {
+    "file": "ファイル",
+    "new": "新規",
+    "save": "保存",
+    "load": "読み込み",
+    "settings": "設定",
+    "language": "言語"
+  },
+  "startStop": {
+    "title": "開始/停止キー",
+    "startKey": "開始キー",
+    "stopKey": "停止キー",
+    "hotkey": "F1"
+  },
+  "stopKeys": {
+    "title": "停止キー",
+    "subtitle": "(Diabloキーと連動)",
+    "description": "これらのキーを押すとマクロが自動停止します",
+    "inventory": "インベントリ",
+    "skills": "スキル",
+    "follower": "フォロワー",
+    "map": "マップ",
+    "worldMap": "ワールドマップ",
+    "townPortal": "タウンポータル",
+    "chat": "チャット",
+    "whisper": "ささやき"
+  },
+  "skillKeys": {
+    "title": "スキルキー",
+    "interval": "間隔 (msec)",
+    "empty": "空",
+    "clickToSet": "クリックしてキーを設定"
+  },
+  "specialKey": {
+    "title": "特殊キー（押し続けて一時停止）",
+    "keyLabel": "キー",
+    "warning": "警告: このキーを押し続けるとマクロが一時停止します。"
+  },
+  "status": {
+    "running": "実行中",
+    "stopped": "停止",
+    "paused": "一時停止"
+  },
+  "messages": {
+    "saveSuccess": "設定が保存されました",
+    "loadSuccess": "設定が読み込まれました",
+    "error": "エラーが発生しました",
+    "keyRegistered": "キーが登録されました",
+    "invalidKey": "無効なキーです"
+  }
+}

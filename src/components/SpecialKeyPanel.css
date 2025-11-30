@@ -1,0 +1,79 @@
+.special-key-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* Reduced gap */
+  padding: 6px; /* Reduced padding */
+  border: 1px solid var(--border-dark);
+  background: var(--bg-secondary);
+  height: auto; /* Allow auto height */
+  margin-top: auto; /* Push to bottom if in flex container */
+}
+
+.special-key-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.special-key-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-gold);
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.skull-icon {
+  font-size: 16px;
+}
+
+.special-key-input-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.special-key-btn {
+  background: #0a0505;
+  border: 1px solid var(--border-dark);
+  color: var(--text-secondary);
+  padding: 5px 15px;
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  cursor: pointer;
+  width: 100%; /* Fill available space */
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.special-key-btn:hover {
+  border-color: var(--border-gold);
+  color: var(--text-primary);
+}
+
+.special-key-btn.active {
+  color: var(--text-gold);
+  border-color: var(--border-gold);
+}
+
+.special-key-warning {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(139, 0, 0, 0.1);
+  border: 1px solid var(--border-red);
+  padding: 8px 12px;
+  margin-top: auto; /* Push to bottom */
+}
+
+.warning-icon {
+  color: var(--accent-orange);
+  font-size: 14px;
+}
+
+.warning-text {
+  color: var(--text-red);
+  font-size: 11px;
+  font-family: 'Noto Sans KR', sans-serif;
+}

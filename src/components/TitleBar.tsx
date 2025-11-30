@@ -1,0 +1,35 @@
+
+import './TitleBar.css';
+
+export default function TitleBar() {
+  const handleMinimize = () => {
+    window.electronAPI.windowMinimize();
+  };
+
+  const handleClose = () => {
+    window.electronAPI.windowClose();
+  };
+
+  return (
+    <div className="title-bar">
+      <div className="title-bar-left">
+        <span className="app-icon">⚔</span>
+        <span className="app-name">D4HELPER v1.0.1</span>
+      </div>
+
+      <div className="title-bar-center">
+        <span className="decoration">❖ ❖ ❖ ❖ ❖</span>
+        <span className="app-title">DIABLO 4 HELPER - SANCTUARY EDITION</span>
+      </div>
+
+      <div className="title-bar-right">
+        <button className="title-bar-btn minimize" onClick={handleMinimize}>
+          _
+        </button>
+        <button className="title-bar-btn close" onClick={handleClose}>
+          ✕
+        </button>
+      </div>
+    </div>
+  );
+}

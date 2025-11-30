@@ -1,0 +1,57 @@
+{
+  "app": {
+    "name": "D4Helper",
+    "version": "2.1",
+    "title": "Diablo 4 Helper - Sanctuary Edition"
+  },
+  "menu": {
+    "file": "File",
+    "new": "새 설정",
+    "save": "저장",
+    "load": "불러오기",
+    "settings": "설정",
+    "language": "언어"
+  },
+  "startStop": {
+    "title": "Start/Stop Keys",
+    "startKey": "Start Key",
+    "stopKey": "Stop Key",
+    "hotkey": "F1"
+  },
+  "stopKeys": {
+    "title": "Stop Keys",
+    "subtitle": "(Match Diablo Keys)",
+    "description": "해당 키를 누르면 매크로가 자동으로 정지됩니다",
+    "inventory": "인벤토리",
+    "skills": "스킬",
+    "follower": "추종자",
+    "map": "지도",
+    "worldMap": "월드 맵",
+    "townPortal": "마을 포탈",
+    "chat": "채팅",
+    "whisper": "귓속말"
+  },
+  "skillKeys": {
+    "title": "Skill Keys",
+    "interval": "Interval (msec)",
+    "empty": "Empty",
+    "clickToSet": "클릭하여 키 설정"
+  },
+  "specialKey": {
+    "title": "Special Key (Hold to Pause)",
+    "keyLabel": "Key",
+    "warning": "경고: 이 키를 누르고 있으면 매크로가 일시정지됩니다."
+  },
+  "status": {
+    "running": "실행 중",
+    "stopped": "정지됨",
+    "paused": "일시정지"
+  },
+  "messages": {
+    "saveSuccess": "설정이 저장되었습니다",
+    "loadSuccess": "설정을 불러왔습니다",
+    "error": "오류가 발생했습니다",
+    "keyRegistered": "키가 등록되었습니다",
+    "invalidKey": "유효하지 않은 키입니다"
+  }
+}

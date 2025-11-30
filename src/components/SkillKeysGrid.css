@@ -1,0 +1,16 @@
+.skill-keys-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1; /* Take up remaining space */
+  min-height: 0;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr); /* Equal distribution */
+  gap: 6px; /* Reduced gap */
+  flex: 1;
+  min-height: 0;
+}

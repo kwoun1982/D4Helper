@@ -14,6 +14,8 @@
     "language": "言語",
     "defaultConfig": "デフォルト設定",
     "externalFile": "外部ファイル",
+    "showLayout": "レイアウト表示",
+    "resetLayout": "レイアウト初期化",
     "profilePrefix": "プロファイル"
   },
   "profile": {
@@ -70,6 +72,10 @@
     "fileNotSaveable": "ファイルを保存できません",
     "error": "エラーが発生しました",
     "keyRegistered": "キーが登録されました",
-    "invalidKey": "無効なキーです"
+    "invalidKey": "無効なキーです",
+    "overlayEditEnabled": "オーバーレイ編集モードが有効になりました",
+    "overlayEditDisabled": "オーバーレイ編集モードが無効になりました",
+    "confirmResetLayout": "レイアウト位置をリセットしますか？",
+    "layoutReset": "フローティングウィンドウの位置がリセットされました"
   }
 }

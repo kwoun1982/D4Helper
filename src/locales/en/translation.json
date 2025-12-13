@@ -14,6 +14,8 @@
     "language": "Language",
     "defaultConfig": "Default Config",
     "externalFile": "External File",
+    "showLayout": "Show Layout",
+    "resetLayout": "Reset Layout",
     "profilePrefix": "Profile"
   },
   "profile": {
@@ -70,6 +72,10 @@
     "fileNotSaveable": "File cannot be saved",
     "error": "An error occurred",
     "keyRegistered": "Key registered",
-    "invalidKey": "Invalid key"
+    "invalidKey": "Invalid key",
+    "overlayEditEnabled": "Overlay edit mode enabled",
+    "overlayEditDisabled": "Overlay edit mode disabled",
+    "confirmResetLayout": "Reset layout position?",
+    "layoutReset": "Floating window position reset"
   }
 }

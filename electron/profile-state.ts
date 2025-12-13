@@ -1,5 +1,8 @@
 // Profile state management module
-import { MacroProfile, MacroStatus } from "../src/types";
+import { MacroProfile, MacroStatus, AppConfig } from "../src/types";
+import { updateOverlayStatus } from "./overlay-window";
+
+console.log("⚠️ [PROFILE-STATE] Module Loaded! ID:", Math.random());
 
 // Per-profile state tracking
 export interface ProfileState {
@@ -33,23 +36,48 @@ export function sendStatusUpdate() {
   }
 }
 
-export function updateCurrentStatus() {
-  const hasRunning = runningProfiles.size > 0;
+export function updateCurrentStatus(
+  profilesMap: Map<string, ProfileState> = runningProfiles
+) {
+  console.log(
+    `[PROFILE-STATE] updateCurrentStatus called. runningProfiles size: ${profilesMap.size}`
+  );
+  const hasRunning = profilesMap.size > 0;
   const allPaused =
     hasRunning &&
-    Array.from(runningProfiles.values()).every((p) => p.state === "paused");
+    Array.from(profilesMap.values()).every((p) => p.state === "paused");
 
   currentStatus = {
     state: hasRunning ? (allPaused ? "paused" : "running") : "stopped",
     activeSlots: [],
     runningProfiles: Object.fromEntries(
-      Array.from(runningProfiles.entries()).map(([id, state]) => [
+      Array.from(profilesMap.entries()).map(([id, state]) => [
         id,
         { state: state.state, startedAt: state.startedAt },
       ])
     ),
   };
   sendStatusUpdate();
+  sendOverlayUpdate(profilesMap);
+}
+
+// Send overlay update with running profiles
+export function sendOverlayUpdate(
+  profilesMap: Map<string, ProfileState> = runningProfiles
+) {
+  const { getConfig } = require("./config-manager");
+  const config: AppConfig = getConfig();
+
+  const allProfiles = config.profiles.map((profile) => {
+    const runningState = profilesMap.get(profile.id);
+    return {
+      profileName: profile.name,
+      startStopKey: profile.startStopKey,
+      state: runningState ? runningState.state : ("stopped" as const),
+    };
+  });
+
+  updateOverlayStatus(allProfiles);
 }
 
 // Helper to add random delay

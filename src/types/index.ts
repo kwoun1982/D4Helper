@@ -55,6 +55,15 @@ export interface AppConfig {
   runningProfileIds: string[]; // Profiles currently executing
   selectedProfileId: string; // Profile selected in UI for editing
 
+  // Overlay Settings
+  overlay: {
+    enabled: boolean;
+    position: { x: number; y: number };
+  };
+
+  // Main Window Settings
+  windowPosition?: { x: number; y: number };
+
   // Deprecated (Migration purpose only)
   activeProfileId?: string; // Old single-profile system
   startStopKey?: string;
@@ -132,6 +141,11 @@ export const DEFAULT_CONFIG: AppConfig = {
   ],
   runningProfileIds: [],
   selectedProfileId: "default",
+
+  overlay: {
+    enabled: true,
+    position: { x: 10, y: 10 },
+  },
 };
 
 // IPC 채널 타입

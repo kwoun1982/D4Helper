@@ -1,6 +1,6 @@
 {
   "name": "d4-helper",
-  "version": "1.0.1",
+  "version": "2.0.1",
   "description": "Diablo 4 Helper - Sanctuary Edition",
   "author": "WAYNE",
   "main": "dist-electron/electron/main.js",
@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "build:electron": "tsc -p tsconfig.electron.json",
-    "electron:dev": "bun run build:electron && concurrently \"vite\" \"wait-on http://localhost:5173 && set NODE_ENV=development&& electron .\"",
+    "electron:dev": "bun run build:electron && concurrently \"vite\" \"wait-on http://localhost:5173 && set NODE_ENV=development&& electron . --disable-gpu\"",
     "electron:dev:app": "set NODE_ENV=development&& bun run build:electron && electron .",
     "electron:build": "bun run build && bun run build:electron && electron-builder --win --x64",
     "preview": "vite preview",

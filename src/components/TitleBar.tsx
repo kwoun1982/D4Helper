@@ -5,7 +5,7 @@ interface TitleBarProps {
   currentFile?: string;
 }
 
-export default function TitleBar({ currentFile = '기본 설정' }: TitleBarProps) {
+export default function TitleBar({ }: TitleBarProps) {
   const handleMinimize = () => {
     window.electronAPI.windowMinimize();
   };
@@ -18,7 +18,7 @@ export default function TitleBar({ currentFile = '기본 설정' }: TitleBarProp
     <div className="title-bar">
       <div className="title-bar-left">
         <span className="app-icon">⚔</span>
-        <span className="app-name">D4HELPER v1.0.1</span>
+        <span className="app-name">D4HELPER v2.0.1</span>
       </div>
 
       <div className="title-bar-center">

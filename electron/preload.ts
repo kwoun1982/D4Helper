@@ -32,6 +32,27 @@ contextBridge.exposeInMainWorld("electronAPI", {
   onStatusUpdate: (callback: (status: MacroStatus) => void) => {
     ipcRenderer.on("status:update", (_, status) => callback(status));
   },
+
+  // Overlay updates
+  onOverlayUpdate: (
+    callback: (
+      profiles: Array<{
+        profileName: string;
+        startStopKey: string;
+        state: "running" | "paused" | "stopped";
+      }>
+    ) => void
+  ) => {
+    ipcRenderer.on("overlay:update", (_, profiles) => callback(profiles));
+  },
+  setOverlayInteractive: (interactive: boolean) =>
+    ipcRenderer.invoke("overlay:set-interactive", interactive),
+  resetOverlayPosition: () => ipcRenderer.invoke("overlay:reset-position"),
+  onOverlayInteractive: (callback: (interactive: boolean) => void) => {
+    ipcRenderer.on("overlay:interactive", (_, interactive) =>
+      callback(interactive)
+    );
+  },
 });
 
 // Type declaration for window.electronAPI
@@ -67,6 +88,15 @@ declare global {
       windowMaximize: () => Promise<void>;
       windowClose: () => Promise<void>;
       onStatusUpdate: (callback: (status: MacroStatus) => void) => void;
+      onOverlayUpdate: (
+        callback: (
+          profiles: Array<{
+            profileName: string;
+            startStopKey: string;
+            state: "running" | "paused";
+          }>
+        ) => void
+      ) => void;
     };
   }
 }

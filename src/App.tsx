@@ -15,6 +15,7 @@ function App() {
   const [status, setStatus] = useState<MacroStatus>({ state: 'stopped', activeSlots: [], runningProfiles: {} });
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
   const [currentFilePath, setCurrentFilePath] = useState<string>('기본 설정');
+  const [isOverlayInteractive, setIsOverlayInteractive] = useState(false);
 
   // 초기 설정 로드
   useEffect(() => {
@@ -210,6 +211,18 @@ function App() {
     await window.electronAPI.configSave(newConfig);
   };
 
+  const handleToggleOverlayInteractive = () => {
+    const newState = !isOverlayInteractive;
+    setIsOverlayInteractive(newState);
+    window.electronAPI.setOverlayInteractive(newState);
+    showToast(newState ? t('messages.overlayEditEnabled') : t('messages.overlayEditDisabled'), 'info');
+  };
+
+  const handleResetOverlay = async () => {
+    await window.electronAPI.resetOverlayPosition();
+    showToast(t('messages.layoutReset'), 'info');
+  };
+
   // 스킬 슬롯 변경 (Selected Profile)
   const handleSkillSlotsChange = async (skillSlots: SkillSlotConfig[]) => {
     const selectedProfile = getSelectedProfile();
@@ -236,6 +249,9 @@ function App() {
         onLanguageChange={handleLanguageChange}
         currentLanguage={config.language}
         currentFile={getTranslatedFileName(currentFilePath)}
+        isOverlayInteractive={isOverlayInteractive}
+        onToggleOverlayInteractive={handleToggleOverlayInteractive}
+        onResetOverlay={handleResetOverlay}
       />
 
       <div className="main-content">

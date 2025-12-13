@@ -1,0 +1,161 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    overflow: hidden;
+    font-family: 'Cinzel', serif;
+    user-select: none;
+}
+
+.overlay-container {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none; /* Click-through */
+    align-items: flex-start; /* Left align */
+}
+
+.profile-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    
+    /* Diablo Tooltip Style Background */
+    background: linear-gradient(to bottom, rgba(20, 20, 20, 0.9), rgba(10, 10, 10, 0.95));
+    border: 1px solid #555;
+    border-top-color: #8b7355; /* Gold top */
+    border-bottom-color: #333;
+    
+    border-radius: 2px;
+    color: #e8e8e8;
+    
+    /* Shadow for depth */
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.8),
+        0 0 10px rgba(0, 0, 0, 0.5);
+
+    animation: slideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    min-width: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Status Glow Indicator (Left Bar) */
+.profile-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #555;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.profile-item.running {
+    border-color: #4a7c3f; /* Green border hint */
+}
+
+.profile-item.running::before {
+    background: #4a7c3f;
+    box-shadow: 0 0 8px #4a7c3f, 0 0 15px #4a7c3f; /* Green Glow */
+}
+
+.profile-item.paused {
+    border-color: #d4af37; /* Gold border hint */
+}
+
+.profile-item.paused::before {
+    background: #d4af37;
+    box-shadow: 0 0 8px #d4af37, 0 0 15px #d4af37; /* Gold Glow */
+}
+
+.profile-item.stopped {
+    border-color: #333;
+    color: #666;
+    background: rgba(10, 10, 10, 0.6);
+}
+
+.profile-item.stopped::before {
+    background: #333;
+    box-shadow: none;
+}
+
+.profile-name {
+    font-weight: 700;
+    font-size: 15px;
+    color: #f0f0f0;
+    text-shadow: 0 2px 2px rgba(0,0,0,1);
+    letter-spacing: 0.5px;
+    flex-grow: 1;
+}
+
+.profile-item.stopped .profile-name {
+    color: #888;
+    text-shadow: none;
+}
+
+.profile-key {
+    font-size: 11px;
+    color: #888;
+    font-family: 'Noto Sans KR', sans-serif; /* Better for brackets */
+    text-transform: uppercase;
+    background: rgba(0,0,0,0.5);
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid #333;
+}
+
+.profile-state {
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 50px;
+    text-align: center;
+}
+
+.profile-item.running .profile-state {
+    color: #6eff6e;
+    text-shadow: 0 0 5px rgba(74, 124, 63, 0.8);
+}
+
+.profile-item.paused .profile-state {
+    color: #ffd700;
+    text-shadow: 0 0 5px rgba(212, 175, 55, 0.8);
+}
+
+.profile-item.stopped .profile-state {
+    color: #666;
+    text-shadow: none;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.overlay-container.interactive {
+    background: rgba(50, 50, 150, 0.3);
+    border: 2px dashed #4a9eff;
+    cursor: move;
+    -webkit-app-region: drag; /* Electron drag region */
+    min-height: 100px;
+}
+
+.drag-handle {
+    background: #4a9eff;
+    color: white;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    align-self: center;
+    margin-bottom: 8px;
+}

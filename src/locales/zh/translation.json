@@ -14,6 +14,8 @@
     "language": "语言",
     "defaultConfig": "默认配置",
     "externalFile": "外部文件",
+    "showLayout": "显示布局",
+    "resetLayout": "重置布局",
     "profilePrefix": "配置"
   },
   "profile": {
@@ -70,6 +72,10 @@
     "fileNotSaveable": "无法保存文件",
     "error": "发生错误",
     "keyRegistered": "按键已注册",
-    "invalidKey": "无效按键"
+    "invalidKey": "无效按键",
+    "overlayEditEnabled": "覆盖层编辑模式已启用",
+    "overlayEditDisabled": "覆盖层编辑模式已禁用",
+    "confirmResetLayout": "重置布局位置？",
+    "layoutReset": "浮动窗口位置已重置"
   }
 }

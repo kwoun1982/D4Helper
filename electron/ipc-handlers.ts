@@ -155,4 +155,17 @@ export function registerIpcHandlers() {
     const win = BrowserWindow.getFocusedWindow();
     win?.close();
   });
+
+  // Overlay Controls
+  ipcMain.handle("overlay:set-interactive", async (_, interactive: boolean) => {
+    const { setOverlayInteractive } = require("./overlay-window");
+    setOverlayInteractive(interactive);
+    return { success: true };
+  });
+
+  ipcMain.handle("overlay:reset-position", async () => {
+    const { resetOverlayPosition } = require("./overlay-window");
+    resetOverlayPosition();
+    return { success: true };
+  });
 }

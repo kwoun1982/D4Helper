@@ -23,8 +23,8 @@ export default function ProfileList({
     selectedProfileId,
     status,
     onSelect,
-    onStart,
-    onStop,
+    // onStart, // Unused
+    // onStop, // Unused
     onAdd,
     onDelete,
     onRename,

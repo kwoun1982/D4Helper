@@ -101,7 +101,7 @@ export function startProfile(profileId: string, config: AppConfig) {
   profileState.intervals.set(0, mainTimer);
   runningProfiles.set(profileId, profileState);
 
-  updateCurrentStatus();
+  updateCurrentStatus(runningProfiles);
   startGlobalPollerIfNeeded();
 }
 
@@ -134,7 +134,7 @@ export function stopProfile(profileId: string, config: AppConfig) {
   }
 
   runningProfiles.delete(profileId);
-  updateCurrentStatus();
+  updateCurrentStatus(runningProfiles);
 
   // Don't stop global poller - keep it running so F1 can restart profiles
   // if (runningProfiles.size === 0) {
@@ -160,7 +160,7 @@ export function pauseProfile(profileId: string, config: AppConfig) {
     });
   }
 
-  updateCurrentStatus();
+  updateCurrentStatus(runningProfiles);
 }
 
 // Resume a specific profile
@@ -170,7 +170,7 @@ export function resumeProfile(profileId: string) {
 
   console.log(`Resuming profile: ${profileId}`);
   profileState.state = "running";
-  updateCurrentStatus();
+  updateCurrentStatus(runningProfiles);
 }
 
 // Stop all profiles

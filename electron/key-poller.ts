@@ -67,6 +67,20 @@ export function startGlobalPollerIfNeeded() {
 
     // Check stop keys for all running profiles
     if (runningProfiles.size > 0) {
+      // 1. Check ESC Key (Global Hard Stop)
+      if (isKeyDown("ESCAPE")) {
+        const { stopProfile } = require("./macro-controller");
+        console.log(
+          "⏹️ [GLOBAL-STOP] ESC pressed - Stopping all running profiles"
+        );
+        runningProfiles.forEach((_, profileId) => {
+          stopProfile(profileId, config);
+        });
+        // Debounce to prevent multiple triggers
+        previousStopKeyStates.set("ESCAPE", true);
+      }
+
+      // 2. Check Configured Stop Keys
       Object.entries(STOP_KEY_MAPPING).forEach(([configKey, keyName]) => {
         if (config.stopKeys[configKey as keyof StopKeysConfig]) {
           const vk = VK_CODES[keyName.toUpperCase()];

@@ -4,12 +4,14 @@ import './MenuBar.css';
 
 interface MenuBarProps {
   onSave: () => void;
+  onSaveAs: () => void;
   onLoad: () => void;
   onLanguageChange: (lang: 'ko' | 'en' | 'ja' | 'zh') => void;
   currentLanguage: string;
+  currentFile?: string;
 }
 
-export default function MenuBar({ onSave, onLoad, onLanguageChange, currentLanguage }: MenuBarProps) {
+export default function MenuBar({ onSave, onSaveAs, onLoad, onLanguageChange, currentLanguage, currentFile = '기본 설정' }: MenuBarProps) {
   const { t } = useTranslation();
 
   return (
@@ -17,15 +19,22 @@ export default function MenuBar({ onSave, onLoad, onLanguageChange, currentLangu
       <div className="menu-left">
         <span className="menu-label">{t('menu.file')}:</span>
         <button className="menu-icon-btn" onClick={onLoad} title={t('menu.load')}>
-          📄
+          📄 {t('menu.load')}
         </button>
         <button className="menu-icon-btn" onClick={onSave} title={t('menu.save')}>
-          💾
+          💾 {t('menu.save')}
+        </button>
+        <button className="menu-icon-btn" onClick={onSaveAs} title={t('menu.saveAs')}>
+          💾+ {t('menu.saveAs')}
         </button>
       </div>
 
+      <div className="menu-center">
+        <span className="file-indicator">{currentFile}</span>
+      </div>
+
       <div className="menu-right">
-        <span className="menu-label">{t('menu.language')}:</span>
+        <div className="spacer"></div>
         <select
           className="language-select"
           value={currentLanguage}

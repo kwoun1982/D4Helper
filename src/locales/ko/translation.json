@@ -8,9 +8,22 @@
     "file": "File",
     "new": "새 설정",
     "save": "저장",
+    "saveAs": "다른 이름으로 저장",
     "load": "불러오기",
     "settings": "설정",
-    "language": "언어"
+    "language": "언어",
+    "defaultConfig": "기본 설정",
+    "externalFile": "외부 파일",
+    "profilePrefix": "프로필"
+  },
+  "profile": {
+    "title": "프로필",
+    "add": "추가",
+    "delete": "프로필 삭제",
+    "rename": "이름 변경",
+    "startStopKey": "시작/정지 키",
+    "waitingInput": "입력 대기...",
+    "deleted": "프로필이 삭제되었습니다"
   },
   "startStop": {
     "title": "Start/Stop Keys",
@@ -50,6 +63,11 @@
   "messages": {
     "saveSuccess": "설정이 저장되었습니다",
     "loadSuccess": "설정을 불러왔습니다",
+    "fileSaved": "파일이 저장되었습니다",
+    "saveFailed": "설정 저장 실패",
+    "loadFailed": "불러오기 실패",
+    "fileNotReadable": "파일을 읽을 수 없습니다",
+    "fileNotSaveable": "파일을 저장할 수 없습니다",
     "error": "오류가 발생했습니다",
     "keyRegistered": "키가 등록되었습니다",
     "invalidKey": "유효하지 않은 키입니다"

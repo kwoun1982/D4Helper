@@ -1,70 +1,116 @@
 .start-stop-panel {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 6px;
-  border: 1px solid var(--border-dark);
-  background: var(--bg-secondary);
+  gap: 10px;
+  padding: 12px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  box-shadow: var(--shadow-md);
+  
+}
+
+.start-stop-panel:hover {
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-lg), var(--glow-gold);
 }
 
 .panel-title {
-  color: var(--text-gold);
-  font-size: 14px;
+  color: var(--text-gold-bright);
+  font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 5px;
-  border-bottom: 1px solid var(--border-dark);
-  padding-bottom: 5px;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid;
+  border-image: linear-gradient(90deg, var(--accent-gold) 0%, transparent 100%) 1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .button-group {
   display: flex;
   flex-direction: column;
-  gap: 5px; /* Reduced gap */
+  gap: 8px;
 }
 
-/* Custom Diablo Button Styles override */
+/* Premium Diablo Button Styles */
 .diablo-btn {
   width: 100%;
-  padding: 4px; /* Reduced padding */
+  padding: 10px 12px;
   font-family: 'Cinzel', serif;
   font-weight: 700;
+  font-size: 13px;
   text-transform: uppercase;
-  border: 1px solid var(--border-gold);
+  letter-spacing: 1px;
+  border: 2px solid;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  transition: all 0.2s;
+  gap: 8px;
+  
   position: relative;
   overflow: hidden;
-  font-size: 12px;
+  border-radius: 4px;
+  box-shadow: var(--shadow-md);
+}
+
+.diablo-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: translate(-50%, -50%);
+  
+}
+
+.diablo-btn:active::before {
+  width: 300px;
+  height: 300px;
 }
 
 .diablo-btn.success {
-  background: var(--accent-green);
+  background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-green-hover) 100%);
   color: #ffffff;
-  border-color: #2a6a2a;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
+  border-color: var(--accent-green);
+  box-shadow: 0 4px 12px var(--accent-green-glow);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .diablo-btn.success:hover {
-  background: var(--accent-green-hover);
-  box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+  background: linear-gradient(135deg, var(--accent-green-hover) 0%, #7dd87d 100%);
+  border-color: var(--accent-green-hover);
+  box-shadow: 0 6px 20px var(--accent-green-glow), inset 0 0 20px rgba(92, 184, 92, 0.3);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.diabl o-btn.success:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .diablo-btn.danger {
-  background: var(--accent-red);
+  background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-red-hover) 100%);
   color: #ffffff;
-  border-color: #8b0000;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.1);
+  border-color: var(--accent-red);
+  box-shadow: 0 4px 12px var(--accent-red-glow);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .diablo-btn.danger:hover {
-  background: linear-gradient(180deg, #8b0000 0%, #5a1a1a 100%);
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+  background: linear-gradient(135deg, var(--accent-red-hover) 0%, #f46863 100%);
+  border-color: var(--accent-red-hover);
+  box-shadow: 0 6px 20px var(--accent-red-glow), inset 0 0 20px rgba(217, 83, 79, 0.3);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.diablo-btn.danger:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .key-setting {
@@ -72,72 +118,111 @@
   align-items: center;
   justify-content: space-between;
   background: var(--bg-input);
-  border: 1px solid var(--border-dark);
-  padding: 4px 8px; /* Reduced padding */
-  margin-top: 3px; /* Reduced margin */
+  border: 2px solid var(--border-dark);
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-top: 4px;
+  
+}
+
+.key-setting:hover {
+  border-color: var(--border-gold);
+  box-shadow: 0 0 8px var(--accent-gold-glow);
 }
 
 .key-label {
   color: var(--text-secondary);
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .key-value {
   background: transparent;
-  border: 1px solid var(--border-gold);
+  border: 2px solid var(--border-gold);
+  border-radius: 3px;
   color: var(--text-gold);
-  padding: 2px 10px;
+  padding: 4px 14px;
   cursor: pointer;
   font-family: 'Cinzel', serif;
-  min-width: 60px;
+  font-weight: 700;
+  font-size: 13px;
+  min-width: 70px;
   text-align: center;
+  
+  box-shadow: 0 0 8px var(--accent-gold-glow);
 }
 
 .key-value:hover {
-  background: rgba(212, 175, 55, 0.1);
+  background: rgba(212, 175, 55, 0.15);
+  border-color: var(--border-gold-bright);
+  box-shadow: 0 0 14px var(--accent-gold-glow);
+  transform: scale(1.05);
 }
 
 .key-value.recording {
   border-color: var(--accent-red);
   color: var(--accent-red);
-  animation: pulse 1s infinite;
+  
+  box-shadow: 0 0 16px var(--accent-red-glow);
 }
 
 .status-indicator {
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: black;
-  border: 1px solid var(--border-red);
-  padding: 4px; /* Reduced padding */
-  margin-top: 2px; /* Reduced margin */
+  gap: 12px;
+  background: var(--bg-input);
+  border: 2px solid var(--border-red);
+  border-radius: 4px;
+  padding: 10px 12px;
+  margin-top: 4px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 .status-dot {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  background: #333;
-  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  background: var(--text-disabled);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  position: relative;
+  
+}
+
+.status-dot::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.4;
+  filter: blur(4px);
 }
 
 .status-dot.running {
-  background: #00ff00;
-  box-shadow: 0 0 10px #00ff00;
+  background: var(--status-running);
+  color: var(--status-running);
+  box-shadow: 0 0 16px var(--accent-blue-glow);
+  
 }
 
 .status-dot.stopped {
-  background: #ff0000;
-  box-shadow: 0 0 10px #ff0000;
+  background: var(--status-stopped);
+  color: var(--status-stopped);
+  box-shadow: 0 0 16px var(--accent-red-glow);
 }
 
 .status-dot.paused {
-  background: #ffcc00;
-  box-shadow: 0 0 10px #ffcc00;
+  background: var(--status-paused);
+  color: var(--status-paused);
+  box-shadow: 0 0 16px var(--accent-orange-glow);
+  
 }
 
 .status-text {
   font-weight: 700;
   font-size: 13px;
   color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }

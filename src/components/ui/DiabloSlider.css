@@ -24,7 +24,7 @@
   box-shadow:
     0 0 6px rgba(255, 215, 0, 0.6),
     0 2px 4px rgba(0, 0, 0, 0.5);
-  transition: all 0.15s ease;
+  
 }
 
 .diablo-slider::-webkit-slider-thumb:hover {
@@ -48,7 +48,7 @@
   box-shadow:
     0 0 6px rgba(255, 215, 0, 0.6),
     0 2px 4px rgba(0, 0, 0, 0.5);
-  transition: all 0.15s ease;
+  
 }
 
 .diablo-slider::-moz-range-thumb:hover {

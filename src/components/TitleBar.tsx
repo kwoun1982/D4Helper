@@ -1,7 +1,11 @@
 
 import './TitleBar.css';
 
-export default function TitleBar() {
+interface TitleBarProps {
+  currentFile?: string;
+}
+
+export default function TitleBar({ currentFile = '기본 설정' }: TitleBarProps) {
   const handleMinimize = () => {
     window.electronAPI.windowMinimize();
   };

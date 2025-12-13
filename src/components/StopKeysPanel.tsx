@@ -29,7 +29,6 @@ export default function StopKeysPanel({ config, onChange }: StopKeysPanelProps) 
   return (
     <div className="stop-keys-panel panel-box">
       <h3 className="section-title">STOP KEYS</h3>
-      <p className="panel-subtitle">(MATCH DIABLO KEYS)</p>
 
       <div className="stop-keys-list">
         {(Object.keys(config) as Array<keyof StopKeysConfig>).map((key) => (

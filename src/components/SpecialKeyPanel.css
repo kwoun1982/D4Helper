@@ -44,7 +44,7 @@
   cursor: pointer;
   width: 100%; /* Fill available space */
   text-align: center;
-  transition: all 0.2s;
+  
 }
 
 .special-key-btn:hover {

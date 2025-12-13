@@ -8,9 +8,22 @@
     "file": "文件",
     "new": "新建",
     "save": "保存",
+    "saveAs": "另存为",
     "load": "加载",
     "settings": "设置",
-    "language": "语言"
+    "language": "语言",
+    "defaultConfig": "默认配置",
+    "externalFile": "外部文件",
+    "profilePrefix": "配置"
+  },
+  "profile": {
+    "title": "配置文件",
+    "add": "添加",
+    "delete": "删除配置",
+    "rename": "重命名",
+    "startStopKey": "启动/停止键",
+    "waitingInput": "等待输入...",
+    "deleted": "配置已删除"
   },
   "startStop": {
     "title": "启动/停止按键",
@@ -50,6 +63,11 @@
   "messages": {
     "saveSuccess": "设置已保存",
     "loadSuccess": "设置已加载",
+    "fileSaved": "文件已保存",
+    "saveFailed": "保存失败",
+    "loadFailed": "加载失败",
+    "fileNotReadable": "无法读取文件",
+    "fileNotSaveable": "无法保存文件",
     "error": "发生错误",
     "keyRegistered": "按键已注册",
     "invalidKey": "无效按键"

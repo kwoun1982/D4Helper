@@ -29,7 +29,7 @@
 - **스타일링**: Custom CSS (Diablo 4 Theme)
 - **빌드**: Vite
 - **다국어**: i18next + react-i18next
-- **키보드 제어**: robotjs
+- **키보드 제어**: koffi (Windows API Direct Call)
 - **설정 저장**: electron-store
 
 ### 플랫폼

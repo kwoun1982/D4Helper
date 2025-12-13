@@ -20,7 +20,7 @@ export default function SkillKeysGrid({ slots, onChange }: SkillKeysGridProps) {
 
   return (
     <div className="skill-keys-grid">
-
+      <h3 className="section-title">SKILL KEYS</h3>
       <div className="grid-container">
         {slots.map((slot) => (
           <SkillSlot

@@ -1,16 +1,29 @@
 .skill-keys-grid {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  flex: 1; /* Take up remaining space */
+  gap: 12px;
+  flex: 1;
   min-height: 0;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 2px solid var(--border-dark);
+  border-radius: 4px;
+  padding: 12px;
+  box-shadow: var(--shadow-md);
+  
+}
+
+.skill-keys-grid:hover {
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-lg);
 }
 
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(4, 1fr); /* Equal distribution */
-  gap: 6px; /* Reduced gap */
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
   flex: 1;
   min-height: 0;
+  
 }

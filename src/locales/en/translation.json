@@ -8,9 +8,22 @@
     "file": "File",
     "new": "New",
     "save": "Save",
+    "saveAs": "Save As",
     "load": "Load",
     "settings": "Settings",
-    "language": "Language"
+    "language": "Language",
+    "defaultConfig": "Default Config",
+    "externalFile": "External File",
+    "profilePrefix": "Profile"
+  },
+  "profile": {
+    "title": "Profiles",
+    "add": "Add",
+    "delete": "Delete Profile",
+    "rename": "Rename",
+    "startStopKey": "Start/Stop Key",
+    "waitingInput": "Waiting for input...",
+    "deleted": "Profile deleted"
   },
   "startStop": {
     "title": "Start/Stop Keys",
@@ -50,6 +63,11 @@
   "messages": {
     "saveSuccess": "Settings saved successfully",
     "loadSuccess": "Settings loaded successfully",
+    "fileSaved": "File saved successfully",
+    "saveFailed": "Save failed",
+    "loadFailed": "Load failed",
+    "fileNotReadable": "File cannot be read",
+    "fileNotSaveable": "File cannot be saved",
     "error": "An error occurred",
     "keyRegistered": "Key registered",
     "invalidKey": "Invalid key"

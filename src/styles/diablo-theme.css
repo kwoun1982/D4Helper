@@ -1,81 +1,199 @@
-/* === Diablo 4 Theme - Sanctuary Edition === */
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap");
+/* === Diablo 4 Theme - Sanctuary Edition - Premium UI === */
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap");
 
 :root {
-  /* === Backgrounds === */
-  --bg-primary: #1a1a1a;        /* Main background (almost black) */
-  --bg-secondary: #242424;      /* Panel background */
-  --bg-tertiary: #2d2d2d;       /* Card/Box background */
-  --bg-input: #000000;          /* Input background */
+  /* === Enhanced Backgrounds with Gradients === */
+  --bg-primary: #0a0a0a;              /* Deeper black */
+  --bg-primary-gradient: linear-gradient(135deg, #0a0a0a 0%, #1a1212 100%);
+  --bg-secondary: #1a1414;            /* Rich dark */
+  --bg-secondary-gradient: linear-gradient(135deg, #1a1414 0%, #241a1a 100%);
+  --bg-tertiary: #2a2020;             /* Card background */
+  --bg-tertiary-gradient: linear-gradient(135deg, #2a2020 0%, #352828 100%);
+  --bg-input: #0f0f0f;                /* Input background */
+  --bg-input-focus: #1a1515;          /* Input focus state */
 
-  /* === Borders === */
-  --border-dark: #333333;       /* Default border */
-  --border-gold: #8b7355;       /* Gold accent border */
-  --border-red: #6b3030;        /* Red accent border */
+  /* === Glassmorphism === */
+  --glass-bg: rgba(26, 20, 20, 0.7);
+  --glass-border: rgba(139, 115, 85, 0.2);
+  --glass-blur: 10px;
 
-  /* === Accents === */
-  --accent-green: #4a7c3f;      /* Start button green */
-  --accent-green-hover: #5a9c4f;
-  --accent-red: #7c3f3f;        /* Stop button red */
-  --accent-red-hover: #9c4f4f;
-  --accent-gold: #d4af37;       /* Standard Gold */
+  /* === Enhanced Borders === */
+  --border-dark: #3a2f2f;             /* Warmer dark border */
+  --border-gold: #b8945f;             /* Brighter gold */
+  --border-gold-bright: #d4af37;      /* Vibrant gold */
+  --border-red: #8b3a3a;              /* Deeper red */
+  --border-red-bright: #c94a4a;       /* Vibrant red */
 
-  /* === Text === */
-  --text-primary: #e8e8e8;      /* Main text (light grey) */
-  --text-secondary: #a0a0a0;    /* Secondary text */
-  --text-gold: #c9aa71;         /* Gold text */
-  --text-red: #ff6b6b;          /* Warning/Error text */
+  /* === Vibrant Accents === */
+  --accent-green: #5cb85c;            /* Vibrant green */
+  --accent-green-hover: #6fca6f;
+  --accent-green-glow: rgba(92, 184, 92, 0.4);
+  --accent-red: #d9534f;              /* Vibrant red */
+  --accent-red-hover: #e66560;
+  --accent-red-glow: rgba(217, 83, 79, 0.4);
+  --accent-gold: #d4af37;             /* Vibrant gold */
+  --accent-gold-hover: #e6c34f;
+  --accent-gold-glow: rgba(212, 175, 55, 0.4);
+  --accent-blue: #4a90e2;             /* Running state */
+  --accent-blue-glow: rgba(74, 144, 226, 0.4);
+  --accent-orange: #f0ad4e;           /* Paused state */
+  --accent-orange-glow: rgba(240, 173, 78, 0.4);
+
+  /* === Enhanced Text === */
+  --text-primary: #f0f0f0;            /* Brighter text */
+  --text-secondary: #b0b0b0;          /* Medium grey */
+  --text-tertiary: #808080;           /* Dim grey */
+  --text-gold: #d4af37;               /* Gold text */
+  --text-gold-bright: #e6c34f;        /* Bright gold */
+  --text-red: #ff6b6b;                /* Warning text */
+  --text-disabled: #4a4a4a;           /* Disabled text */
+
+  /* === Shadows & Glows === */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.6);
+  --glow-gold: 0 0 12px var(--accent-gold-glow);
+  --glow-red: 0 0 12px var(--accent-red-glow);
+  --glow-green: 0 0 12px var(--accent-green-glow);
+  --glow-blue: 0 0 12px var(--accent-blue-glow);
 
   /* === Components === */
-  --slider-track: #8b2020;      /* Slider track (dark red) */
-  --slider-thumb: #c9aa71;      /* Slider thumb (gold) */
+  --slider-track: linear-gradient(90deg, #5a1f1f 0%, #8b2020 100%);
+  --slider-thumb: var(--accent-gold);
+  --slider-thumb-glow: 0 0 8px var(--accent-gold-glow);
   
-  /* === Status === */
-  --status-active: #4ade80;
-  --status-inactive: #ef4444;
+  /* === Status Colors === */
+  --status-running: #4a90e2;
+  --status-stopped: #d9534f;
+  --status-paused: #f0ad4e;
+
+  /* === Animation Timings === */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  user-select: none; /* Prevent text selection for app-like feel */
+  user-select: none;
 }
 
 body {
   font-family: "Cinzel", "Noto Sans KR", serif;
-  background-color: var(--bg-primary);
+  background: var(--bg-primary-gradient);
   color: var(--text-primary);
-  overflow: hidden; /* Prevent global scroll */
+  overflow: hidden;
   height: 100vh;
   width: 100vw;
+  font-weight: 400;
 }
 
-/* Common Utility Classes */
+/* === Enhanced Utility Classes === */
 .panel-box {
-  border: 1px solid var(--border-dark);
-  background: var(--bg-secondary);
-  padding: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  padding: 12px;
+  box-shadow: var(--shadow-md);
+  border-radius: 4px;
+  
+}
+
+.panel-box:hover {
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-lg), var(--glow-gold);
 }
 
 .section-title {
   color: var(--text-gold);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  position: relative;
+  padding-bottom: 6px;
 }
 
-/* Custom Scrollbar */
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-gold) 0%, transparent 100%);
+  box-shadow: 0 0 8px var(--accent-gold-glow);
+}
+
+/* === Enhanced Scrollbar === */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
+  height: 8px;
 }
+
 ::-webkit-scrollbar-track {
-  background: var(--bg-slot);
+  background: var(--bg-secondary);
+  border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: var(--border-gold);
-  border-radius: 3px;
+  background: linear-gradient(180deg, var(--border-gold) 0%, var(--border-gold-bright) 100%);
+  border-radius: 4px;
+  box-shadow: 0 0 6px var(--accent-gold-glow);
+  
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--border-gold-bright) 0%, var(--accent-gold) 100%);
+  box-shadow: 0 0 10px var(--accent-gold-glow);
+}
+
+/* === Keyframe Animations === */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px var(--accent-gold-glow);
+  }
+  50% {
+    box-shadow: 0 0 16px var(--accent-gold-glow);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

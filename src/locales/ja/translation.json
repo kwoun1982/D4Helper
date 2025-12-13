@@ -8,9 +8,22 @@
     "file": "ファイル",
     "new": "新規",
     "save": "保存",
+    "saveAs": "名前を付けて保存",
     "load": "読み込み",
     "settings": "設定",
-    "language": "言語"
+    "language": "言語",
+    "defaultConfig": "デフォルト設定",
+    "externalFile": "外部ファイル",
+    "profilePrefix": "プロファイル"
+  },
+  "profile": {
+    "title": "プロファイル",
+    "add": "追加",
+    "delete": "プロファイル削除",
+    "rename": "名前変更",
+    "startStopKey": "開始/停止キー",
+    "waitingInput": "入力待ち...",
+    "deleted": "プロファイルが削除されました"
   },
   "startStop": {
     "title": "開始/停止キー",
@@ -50,6 +63,11 @@
   "messages": {
     "saveSuccess": "設定が保存されました",
     "loadSuccess": "設定が読み込まれました",
+    "fileSaved": "ファイルが保存されました",
+    "saveFailed": "保存失敗",
+    "loadFailed": "読み込み失敗",
+    "fileNotReadable": "ファイルを読み取れません",
+    "fileNotSaveable": "ファイルを保存できません",
     "error": "エラーが発生しました",
     "keyRegistered": "キーが登録されました",
     "invalidKey": "無効なキーです"

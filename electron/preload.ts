@@ -1,25 +1,36 @@
-import { contextBridge, ipcRenderer } from 'electron';
-import { AppConfig, MacroStatus } from '../src/types';
+import { contextBridge, ipcRenderer } from "electron";
+import { AppConfig, MacroStatus } from "../src/types";
 
-contextBridge.exposeInMainWorld('electronAPI', {
+contextBridge.exposeInMainWorld("electronAPI", {
   // Macro controls
-  macroStart: () => ipcRenderer.invoke('macro:start'),
-  macroStop: () => ipcRenderer.invoke('macro:stop'),
-  macroPause: (reason: string) => ipcRenderer.invoke('macro:pause', reason),
-  macroResume: () => ipcRenderer.invoke('macro:resume'),
+  macroStart: () => ipcRenderer.invoke("macro:start"),
+  macroStop: () => ipcRenderer.invoke("macro:stop"),
+  macroPause: (reason: string) => ipcRenderer.invoke("macro:pause", reason),
+  macroResume: () => ipcRenderer.invoke("macro:resume"),
+
+  // Per-profile macro controls
+  startProfile: (profileId: string) =>
+    ipcRenderer.invoke("macro:start-profile", profileId),
+  stopProfile: (profileId: string) =>
+    ipcRenderer.invoke("macro:stop-profile", profileId),
+  getProfileState: (profileId: string) =>
+    ipcRenderer.invoke("macro:get-profile-state", profileId),
+  stopAllProfiles: () => ipcRenderer.invoke("macro:stop-all"),
 
   // Config management
-  configSave: (config: AppConfig) => ipcRenderer.invoke('config:save', config),
-  configLoad: () => ipcRenderer.invoke('config:load'),
+  configSave: (config: AppConfig) => ipcRenderer.invoke("config:save", config),
+  configLoad: () => ipcRenderer.invoke("config:load"),
+  fileOpen: () => ipcRenderer.invoke("file:open"),
+  fileSave: (config: AppConfig) => ipcRenderer.invoke("file:save", config),
 
   // Window controls
-  windowMinimize: () => ipcRenderer.invoke('window:minimize'),
-  windowMaximize: () => ipcRenderer.invoke('window:maximize'),
-  windowClose: () => ipcRenderer.invoke('window:close'),
+  windowMinimize: () => ipcRenderer.invoke("window:minimize"),
+  windowMaximize: () => ipcRenderer.invoke("window:maximize"),
+  windowClose: () => ipcRenderer.invoke("window:close"),
 
   // Status updates
   onStatusUpdate: (callback: (status: MacroStatus) => void) => {
-    ipcRenderer.on('status:update', (_, status) => callback(status));
+    ipcRenderer.on("status:update", (_, status) => callback(status));
   },
 });
 
@@ -31,8 +42,27 @@ declare global {
       macroStop: () => Promise<void>;
       macroPause: (reason: string) => Promise<void>;
       macroResume: () => Promise<void>;
+      startProfile: (profileId: string) => Promise<{ success: boolean }>;
+      stopProfile: (profileId: string) => Promise<{ success: boolean }>;
+      getProfileState: (
+        profileId: string
+      ) => Promise<{ state: "running" | "paused" | "stopped" }>;
+      stopAllProfiles: () => Promise<{ success: boolean }>;
       configSave: (config: AppConfig) => Promise<{ success: boolean }>;
       configLoad: () => Promise<AppConfig>;
+      fileOpen: () => Promise<{
+        success: boolean;
+        config?: AppConfig;
+        filePath?: string;
+        error?: string;
+        canceled?: boolean;
+      }>;
+      fileSave: (config: AppConfig) => Promise<{
+        success: boolean;
+        filePath?: string;
+        error?: string;
+        canceled?: boolean;
+      }>;
       windowMinimize: () => Promise<void>;
       windowMaximize: () => Promise<void>;
       windowClose: () => Promise<void>;

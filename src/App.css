@@ -4,47 +4,82 @@
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-color: var(--bg-primary);
-  border: 1px solid var(--border-red); /* Outer border */
+  background: var(--bg-primary-gradient);
+  border: 2px solid var(--border-red);
+  box-shadow: inset 0 0 40px rgba(139, 58, 58, 0.2);
 }
 
 .main-content {
   display: flex;
   flex: 1;
-  padding: 6px; /* Further reduced padding */
-  gap: 6px;
+  padding: 8px;
+  gap: 10px;
   overflow: hidden;
   min-height: 0;
 }
 
 .left-panel {
-  width: 32%; /* Further reduced width */
-  min-width: 260px;
+  width: 23.7%;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  flex-shrink: 0;
+  min-height: 0;
+}
+
+.middle-panel {
+  width: 49.8%;
+  display: flex;
+  flex-direction: column;
   flex-shrink: 0;
   min-height: 0;
 }
 
 .right-panel {
-  flex: 1;
+  width: 24.6%;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  min-width: 0; /* Prevent flex overflow */
-  min-height: 0;
-}
-
-/* Ensure panels take full height if needed */
-.start-stop-panel {
   flex-shrink: 0;
-}
-
-.stop-keys-panel {
-  flex: 1;
-  overflow: hidden; /* Let component handle internal scroll */
   min-height: 0;
 }
 
-/* .skill-keys-grid is handled in its own component CSS */
+.panel-box {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 2px solid var(--border-dark);
+  border-radius: 4px;
+  padding: 12px;
+  box-shadow: var(--shadow-md);
+  
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  
+}
+
+.panel-box:hover {
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-lg);
+}
+
+.section-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-gold-bright);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-family: 'Cinzel', serif;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-gold) 0%, transparent 100%);
+}

@@ -51,6 +51,7 @@ export function startProfile(profileId: string, config: AppConfig) {
       console.log(
         `[${profile.name}] Setting up slot ${slot.slotNumber}: key=${slot.key}, interval=${interval}ms`
       );
+      console.log(`[MACRO-CONTROLLER] Slot ${slot.slotNumber} configured.`);
 
       profileState.slotTimers.set(slot.slotNumber, {
         nextTime: startTime + interval,
@@ -71,8 +72,22 @@ export function startProfile(profileId: string, config: AppConfig) {
       if (now >= timer.nextTime) {
         try {
           if (timer.key.startsWith("Mouse")) {
-            clickMouse(timer.key);
+            // Mouse Click with Duration
+            const { sendMouseDown, sendMouseUp } = require("./input-manager");
+            sendMouseDown(timer.key);
+
+            if (state.pendingKeyUps.has(timer.key)) {
+              clearTimeout(state.pendingKeyUps.get(timer.key)!);
+            }
+
+            const timeout = setTimeout(() => {
+              sendMouseUp(timer.key);
+              state.pendingKeyUps.delete(timer.key);
+            }, 50); // 50ms duration for mouse click
+
+            state.pendingKeyUps.set(timer.key, timeout);
           } else {
+            // Keyboard Key with Duration
             sendKeyDown(timer.key);
 
             if (state.pendingKeyUps.has(timer.key)) {
@@ -127,8 +142,13 @@ export function stopProfile(profileId: string, config: AppConfig) {
   // Release keys from this profile
   if (profile) {
     profile.skillSlots.forEach((slot) => {
-      if (slot.key && !slot.key.startsWith("Mouse")) {
-        sendKeyUp(slot.key);
+      if (slot.key) {
+        if (slot.key.startsWith("Mouse")) {
+          const { sendMouseUp } = require("./input-manager");
+          sendMouseUp(slot.key);
+        } else {
+          sendKeyUp(slot.key);
+        }
       }
     });
   }

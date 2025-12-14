@@ -31,7 +31,13 @@ export function startGlobalPollerIfNeeded() {
         return;
       }
 
+      // Start/Stop logic RESTORED (Global Shortcuts disabled in main.ts)
       const isPressed = isKeyDown(profile.startStopKey);
+
+      // Debug log for F1/F2 press
+      if (isPressed) {
+        // console.log(`[KEY-POLLER] Detected press for ${profile.startStopKey}`);
+      }
       const isRunning = runningProfiles.has(profile.id);
 
       // Toggle on key press (detect rising edge)
@@ -49,16 +55,14 @@ export function startGlobalPollerIfNeeded() {
           console.log(`⏹️ [KEY-POLLER] Stopping profile ${profile.name}`);
           stopProfile(profile.id, config);
         } else {
-          const appFocused = getAppFocused();
-          console.log(
-            `▶️ [KEY-POLLER] Starting profile ${profile.name}, appFocused: ${appFocused}`
-          );
+          // const appFocused = getAppFocused();
+          console.log(`▶️ [KEY-POLLER] Starting profile ${profile.name}`);
 
-          if (!appFocused) {
-            startProfile(profile.id, config);
-          } else {
-            console.log(`⚠️ [KEY-POLLER] App is focused, not starting profile`);
-          }
+          // if (!appFocused) {
+          startProfile(profile.id, config);
+          // } else {
+          //   console.log(`⚠️ [KEY-POLLER] App is focused, not starting profile`);
+          // }
         }
       }
 

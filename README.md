@@ -1,4 +1,4 @@
-# D4 Helper - Sanctuary Edition (v2.0.1)
+# D4 Helper - Sanctuary Edition (v2.0.2)
 
 ![UI Screenshot](./docs/images/ui_screenshot_v2.1.png)
 
@@ -6,7 +6,7 @@
 
 **D4 Helper**는 디아블로 4 플레이어를 위한 강력한 스킬 자동화 도구입니다. 반복적인 스킬 사용을 자동화하여 손목 피로를 줄이고 게임 플레이에 집중할 수 있도록 돕습니다.
 
-**v2.0.1**에서는 **ESC 키 긴급 정지**, **오버레이 레이아웃 초기화**, **향상된 사용성**이 추가되어 더욱 편리해졌습니다.
+**v2.0.2**에서는 **ESC 키 긴급 정지**, **오버레이 레이아웃 초기화**, **향상된 사용성**이 추가되어 더욱 편리해졌습니다.
 
 ---
 
@@ -24,9 +24,9 @@
 
 - 게임 화면 위에 현재 매크로 상태(실행 중/정지/일시정지)를 보여주는 오버레이 위젯을 제공합니다.
 - **레이아웃 표시** 모드로 오버레이 위치를 자유롭게 드래그하여 원하는 곳에 배치할 수 있습니다.
-- **레이아웃 초기화** 기능으로 오버레이가 화면 밖으로 사라졌을 때 즉시 복구할 수 있습니다. **[NEW in 2.0.1]**
+- **레이아웃 초기화** 기능으로 오버레이가 화면 밖으로 사라졌을 때 즉시 복구할 수 있습니다. **[NEW in 2.0.2]**
 
-### 3. 🚨 ESC 키 긴급 정지 (Emergency Stop) **[NEW in 2.0.1]**
+### 3. 🚨 ESC 키 긴급 정지 (Emergency Stop) **[NEW in 2.0.2]**
 
 - 게임 내에서 **ESC 키**를 누르면 실행 중인 **모든 프로필**이 즉시 중단됩니다.
 - 예상치 못한 상황에서 빠르게 매크로를 종료할 수 있습니다.
@@ -65,7 +65,7 @@
 
 ### 사용자용 설치 (For Users)
 
-1. [Releases](https://github.com/your-repo/d4-helper/releases) 페이지에서 `D4Helper_v2.0.1.exe` 다운로드
+1. [Releases](https://github.com/your-repo/d4-helper/releases) 페이지에서 `D4Helper_v2.0.2.exe` 다운로드
 2. 실행 파일을 더블클릭하여 실행
 3. 프로그램이 자동으로 시작됩니다
 
@@ -138,7 +138,7 @@ bun run electron:build
 
 ---
 
-## 🆕 What's New in v2.0.1
+## 🆕 What's New in v2.0.2
 
 ### 추가된 기능
 
@@ -170,6 +170,6 @@ MIT License - 상업적 사용 가능, 수정 및 배포 자유
 
 ---
 
-**Version**: 2.0.1  
+**Version**: 2.0.2  
 **Last Updated**: 2025-12-13  
 **Developer**: WAYNE

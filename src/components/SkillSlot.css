@@ -2,13 +2,14 @@
   background: var(--bg-tertiary-gradient);
   border: 1px solid var(--border-dark);
   border-radius: 4px;
-  padding: 28px 8px 8px 8px;
+  padding: 8px 12px; /* Reduced padding */
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  justify-content: space-between; /* Distribute space */
+  gap: 4px; /* Reduced gap */
   position: relative;
-  justify-content: flex-start;
   height: 100%;
+  min-height: 0; /* Allow shrinking */
   
   box-shadow: var(--shadow-sm);
 }
@@ -58,6 +59,8 @@
   align-items: center;
   gap: 10px;
   min-height: 24px;
+  margin-bottom: 2px; /* Reduced margin */
+  flex-shrink: 0; /* Prevent header from shrinking too much */
 }
 
 .slot-number {

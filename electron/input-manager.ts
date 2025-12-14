@@ -186,18 +186,48 @@ export const SCAN_CODES: Record<string, number> = {
 };
 
 // Windows SendInput API
-const user32 = koffi.load("user32.dll");
-const SendInput = user32.func(
-  "uint32 SendInput(uint32 nInputs, _Inout_ void *pInputs, int32 cbSize)"
-);
-const GetAsyncKeyState = user32.func("int16 GetAsyncKeyState(int32 vKey)");
+let user32: any;
+let SendInput: any;
+let GetAsyncKeyState: any;
+
+try {
+  console.log("[INPUT-MANAGER] Loading user32.dll via koffi...");
+  user32 = koffi.load("user32.dll");
+
+  // Koffi 2.x syntax: func(convention, ret, params) or func(ret, params)
+  // Using explicit string parser with convention
+  SendInput = user32.func("__stdcall", "SendInput", "uint32", [
+    "uint32",
+    "void *",
+    "int32",
+  ]);
+  GetAsyncKeyState = user32.func("__stdcall", "GetAsyncKeyState", "int16", [
+    "int32",
+  ]);
+
+  console.log(
+    "[INPUT-MANAGER] Successfully loaded user32.dll and bound functions."
+  );
+} catch (error) {
+  console.error(
+    "[INPUT-MANAGER] Failed to load user32.dll or bind functions:",
+    error
+  );
+}
 
 const pendingKeyUps: Map<string, NodeJS.Timeout> = new Map();
 const activeKeys: Set<string> = new Set();
 
 export function sendKeyDown(key: string) {
   const scanCode = SCAN_CODES[key.toUpperCase()];
-  if (!scanCode) return;
+  if (!scanCode) {
+    console.warn(`[INPUT-MANAGER] No scan code for key: ${key}`);
+    return;
+  }
+
+  // console.log(
+  //   `[INPUT-MANAGER] Sending KeyDown: ${key} (ScanCode: ${scanCode})`
+  // );
 
   const inputSize = 40;
   const input = Buffer.alloc(inputSize);
@@ -206,7 +236,13 @@ export function sendKeyDown(key: string) {
   input.writeUInt16LE(scanCode, 10); // wScan (Offset 10 for x64)
   input.writeUInt32LE(0x0008, 12); // dwFlags = KEYEVENTF_SCANCODE (0x0008) (Offset 12 for x64)
 
-  SendInput(1, input, inputSize);
+  if (SendInput) {
+    try {
+      SendInput(1, input, inputSize);
+    } catch (e) {
+      console.error(`[INPUT-MANAGER] SendInput failed for ${key}:`, e);
+    }
+  }
   activeKeys.add(key);
 }
 
@@ -221,7 +257,13 @@ export function sendKeyUp(key: string) {
   input.writeUInt16LE(scanCode, 10); // wScan (Offset 10 for x64)
   input.writeUInt32LE(0x0008 | 0x0002, 12); // dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP (Offset 12 for x64)
 
-  SendInput(1, input, inputSize);
+  if (SendInput) {
+    try {
+      SendInput(1, input, inputSize);
+    } catch (e) {
+      console.error(`[INPUT-MANAGER] SendInput KeyUp failed for ${key}:`, e);
+    }
+  }
   activeKeys.delete(key);
 }
 
@@ -241,43 +283,79 @@ export function pressKey(key: string, duration: number = 50) {
   pendingKeyUps.set(key, timeout);
 }
 
-export function clickMouse(button: string) {
+export function sendMouseDown(button: string) {
   const inputSize = 40;
-  const input = Buffer.alloc(inputSize * 2); // Down + Up
+  const input = Buffer.alloc(inputSize);
 
   let downFlag = 0;
-  let upFlag = 0;
 
   if (button === "MouseLeft") {
     downFlag = 0x0002; // MOUSEEVENTF_LEFTDOWN
-    upFlag = 0x0004; // MOUSEEVENTF_LEFTUP
   } else if (button === "MouseRight") {
     downFlag = 0x0008; // MOUSEEVENTF_RIGHTDOWN
-    upFlag = 0x0010; // MOUSEEVENTF_RIGHTUP
   } else if (button === "MouseMiddle") {
     downFlag = 0x0020; // MOUSEEVENTF_MIDDLEDOWN
+  } else {
+    return;
+  }
+
+  input.writeUInt32LE(0, 0);
+  input.writeUInt32LE(downFlag, 20);
+
+  if (SendInput) {
+    try {
+      SendInput(1, input, inputSize);
+    } catch (e) {
+      console.error(`[INPUT-MANAGER] MouseDown failed for ${button}:`, e);
+    }
+  }
+}
+
+export function sendMouseUp(button: string) {
+  const inputSize = 40;
+  const input = Buffer.alloc(inputSize);
+
+  let upFlag = 0;
+
+  if (button === "MouseLeft") {
+    upFlag = 0x0004; // MOUSEEVENTF_LEFTUP
+  } else if (button === "MouseRight") {
+    upFlag = 0x0010; // MOUSEEVENTF_RIGHTUP
+  } else if (button === "MouseMiddle") {
     upFlag = 0x0040; // MOUSEEVENTF_MIDDLEUP
   } else {
     return;
   }
 
-  // Mouse Down
   input.writeUInt32LE(0, 0);
-  input.writeUInt32LE(downFlag, 20);
+  input.writeUInt32LE(upFlag, 20);
 
-  // Mouse Up
-  input.writeUInt32LE(0, inputSize);
-  input.writeUInt32LE(upFlag, inputSize + 20);
+  if (SendInput) {
+    try {
+      SendInput(1, input, inputSize);
+    } catch (e) {
+      console.error(`[INPUT-MANAGER] MouseUp failed for ${button}:`, e);
+    }
+  }
+}
 
-  SendInput(2, input, inputSize);
+export function clickMouse(button: string) {
+  sendMouseDown(button);
+  sendMouseUp(button);
 }
 
 export function isKeyDown(key: string): boolean {
+  if (!GetAsyncKeyState) return false;
   const vkCode = VK_CODES[key.toUpperCase()];
   if (!vkCode) return false;
 
-  const state = GetAsyncKeyState(vkCode);
-  return (state & 0x8000) !== 0;
+  try {
+    const state = GetAsyncKeyState(vkCode);
+    return (state & 0x8000) !== 0;
+  } catch (e) {
+    console.error(`[INPUT-MANAGER] GetAsyncKeyState failed:`, e);
+    return false;
+  }
 }
 
 export function releaseAllKeys() {

@@ -1,6 +1,6 @@
 {
   "name": "d4-helper",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Diablo 4 Helper - Sanctuary Edition",
   "author": "WAYNE",
   "main": "dist-electron/electron/main.js",
@@ -36,6 +36,9 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true
     },
+    "asarUnpack": [
+      "node_modules/koffi"
+    ],
     "files": [
       "dist/**/*",
       "dist-electron/**/*"

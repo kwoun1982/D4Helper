@@ -111,7 +111,7 @@ export function startProfile(profileId: string, config: AppConfig) {
         }
       }
     });
-  }, 10);
+  }, 25);
 
   profileState.intervals.set(0, mainTimer);
   runningProfiles.set(profileId, profileState);

@@ -107,7 +107,7 @@ export function startGlobalPollerIfNeeded() {
         }
       });
     }
-  }, 50);
+  }, 100);
 }
 
 export function stopGlobalPoller() {

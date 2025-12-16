@@ -4,9 +4,15 @@ html, body {
     width: 100%;
     height: 100%;
     background: transparent;
-    overflow: hidden;
+    background: transparent;
+    overflow: hidden; /* Prevent scrollbars */
     font-family: 'Cinzel', serif;
     user-select: none;
+}
+
+/* Hide scrollbars completely */
+::-webkit-scrollbar {
+    display: none;
 }
 
 .overlay-container {
@@ -16,6 +22,8 @@ html, body {
     gap: 8px;
     pointer-events: none; /* Click-through */
     align-items: flex-start; /* Left align */
+    position: relative; /* Ensure absolute children are relative to this */
+    margin-top: 40px; /* Push content down to make room for button */
 }
 
 .profile-item {
@@ -141,13 +149,7 @@ html, body {
     to { transform: translateX(0); opacity: 1; }
 }
 
-.overlay-container.interactive {
-    background: rgba(50, 50, 150, 0.3);
-    border: 2px dashed #4a9eff;
-    cursor: move;
-    -webkit-app-region: drag; /* Electron drag region */
-    min-height: 100px;
-}
+
 
 .drag-handle {
     background: #4a9eff;
@@ -159,3 +161,26 @@ html, body {
     align-self: center;
     margin-bottom: 8px;
 }
+
+.layout-toggle-btn {
+    position: absolute;
+    top: -35px; /* Position above the list */
+    left: 12px; /* Align with padding */
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, rgba(20, 20, 20, 0.9), rgba(10, 10, 10, 0.95));
+    border: 1px solid #8b7355;
+    border-radius: 4px;
+    color: #c9aa71;
+    cursor: move; /* Changed to move */
+    font-size: 16px;
+    transition: all 0.2s ease;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    pointer-events: auto; /* Ensure it captures clicks */
+}
+
+/* Remove the old margin-top rule if it exists at the end */

@@ -59,9 +59,6 @@ export function getConfig(): AppConfig {
   // Migration 4: Add windowPosition if missing
   if (!currentConfig.windowPosition) {
     // Default to center-ish or let Electron decide (undefined)
-    // But we want to track it, so maybe initialize if we want a default.
-    // Actually, if it's undefined, main.ts will just use default centering.
-    // So we don't strictly need to force a value here, but let's ensure the field exists in types.
   }
 
   return currentConfig;

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import TitleBar from './components/TitleBar';
 import MenuBar from './components/MenuBar';
 import StopKeysPanel from './components/StopKeysPanel';
+
 import SkillKeysGrid from './components/SkillKeysGrid';
 import ProfileList from './components/ProfileList';
 import Toast from './components/Toast';
@@ -288,6 +289,7 @@ function App() {
               await window.electronAPI.configSave(newConfig);
             }}
           />
+
         </div>
       </div>
 

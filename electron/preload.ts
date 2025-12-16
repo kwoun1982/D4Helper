@@ -53,6 +53,11 @@ contextBridge.exposeInMainWorld("electronAPI", {
       callback(interactive)
     );
   },
+  setOverlayFocus: (focused: boolean) =>
+    ipcRenderer.invoke("overlay:set-focus", focused),
+  requestOverlayUpdate: () => ipcRenderer.invoke("overlay:request-update"),
+  moveOverlay: (deltaX: number, deltaY: number) =>
+    ipcRenderer.invoke("overlay:move", { deltaX, deltaY }),
 });
 
 // Type declaration for window.electronAPI
@@ -97,6 +102,10 @@ declare global {
           }>
         ) => void
       ) => void;
+
+      setOverlayInteractive: (interactive: boolean) => Promise<void>;
+      resetOverlayPosition: () => Promise<void>;
+      onOverlayInteractive: (callback: (interactive: boolean) => void) => void;
     };
   }
 }

@@ -39,7 +39,7 @@ export function createOverlayWindow() {
 
     console.log("[OVERLAY] BrowserWindow created, setting always on top...");
     // Set to screen-saver level for maximum z-index
-    overlayWindow.setAlwaysOnTop(true, "screen-saver");
+    overlayWindow.setAlwaysOnTop(true, "normal");
 
     console.log("[OVERLAY] Setting ignore mouse events...");
     // Enable click-through
@@ -54,6 +54,10 @@ export function createOverlayWindow() {
     } else {
       overlayWindow.loadFile(path.join(__dirname, "../../dist/overlay.html"));
     }
+
+    overlayWindow.once("ready-to-show", () => {
+      overlayWindow?.show();
+    });
 
     overlayWindow.on("move", () => {
       if (overlayWindow && !overlayWindow.isDestroyed()) {
@@ -92,6 +96,7 @@ export function setOverlayInteractive(interactive: boolean) {
   if (!overlayWindow || overlayWindow.isDestroyed()) return;
 
   if (interactive) {
+    isInteractiveMode = true;
     console.log("[OVERLAY] Enabling interaction (Edit Mode)");
     overlayWindow.setIgnoreMouseEvents(false);
     overlayWindow.setFocusable(true); // Allow focus to drag
@@ -99,14 +104,36 @@ export function setOverlayInteractive(interactive: boolean) {
     // Add a background or border via IPC to renderer?
     // Renderer will handle visual changes based on "overlay:interactive" event
   } else {
+    isInteractiveMode = false;
     console.log("[OVERLAY] Disabling interaction (Locked Mode)");
     overlayWindow.setIgnoreMouseEvents(true, { forward: true });
     overlayWindow.setFocusable(false);
     overlayWindow.webContents.send("overlay:interactive", false);
     // Ensure focus goes back to game or main app?
-    overlayWindow.blur();
   }
 }
+
+export function setOverlayFocus(focused: boolean) {
+  if (!overlayWindow || overlayWindow.isDestroyed()) return;
+
+  // Only change if NOT in interactive mode (Edit Mode)
+  if (isInteractiveMode) {
+    console.log("[OVERLAY] setOverlayFocus ignored (Interactive Mode)");
+    return;
+  }
+
+  if (focused) {
+    console.log("[OVERLAY] setOverlayFocus(true) - Enabling mouse events");
+    overlayWindow.setIgnoreMouseEvents(false);
+  } else {
+    console.log(
+      "[OVERLAY] setOverlayFocus(false) - Disabling mouse events (forwarding)"
+    );
+    overlayWindow.setIgnoreMouseEvents(true, { forward: true });
+  }
+}
+
+let isInteractiveMode = false;
 
 export function updateOverlayStatus(
   runningProfiles: Array<{
@@ -169,5 +196,13 @@ export function resetOverlayPosition() {
       "[OVERLAY] Window not found, creating new one at default position"
     );
     createOverlayWindow();
+  }
+}
+
+export function moveOverlay(deltaX: number, deltaY: number) {
+  if (overlayWindow && !overlayWindow.isDestroyed()) {
+    // console.log(`[OVERLAY] Moving by ${deltaX}, ${deltaY}`);
+    const [x, y] = overlayWindow.getPosition();
+    overlayWindow.setPosition(x + deltaX, y + deltaY);
   }
 }

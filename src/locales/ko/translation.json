@@ -57,6 +57,7 @@
     "keyLabel": "Key",
     "warning": "경고: 이 키를 누르고 있으면 매크로가 일시정지됩니다."
   },
+
   "status": {
     "running": "실행 중",
     "stopped": "정지됨",

@@ -70,6 +70,10 @@ export function registerIpcHandlers() {
       const { globalShortcut } = require("electron");
       globalShortcut.unregisterAll();
       registerStopKeys(config.stopKeys);
+
+      // Update overlay with new config (e.g. new profiles)
+      const { sendOverlayUpdate } = require("./profile-state");
+      sendOverlayUpdate();
     }
     return { success };
   });
@@ -166,6 +170,12 @@ export function registerIpcHandlers() {
   ipcMain.handle("overlay:reset-position", async () => {
     const { resetOverlayPosition } = require("./overlay-window");
     resetOverlayPosition();
+    return { success: true };
+  });
+
+  ipcMain.handle("overlay:move", async (_, { deltaX, deltaY }) => {
+    const { moveOverlay } = require("./overlay-window");
+    moveOverlay(deltaX, deltaY);
     return { success: true };
   });
 }

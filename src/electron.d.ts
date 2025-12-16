@@ -6,7 +6,6 @@ export interface ElectronAPI {
   startProfile: (profileId: string) => Promise<void>;
   stopProfile: (profileId: string) => Promise<void>;
   configSave: (config: AppConfig) => Promise<{ success: boolean }>;
-  configSave: (config: AppConfig) => Promise<{ success: boolean }>;
   configLoad: () => Promise<AppConfig>;
   fileOpen: () => Promise<{
     success: boolean;
@@ -31,9 +30,20 @@ export interface ElectronAPI {
       }>
     ) => void
   ) => void;
+  onOverlayArrowUpdate: (
+    callback: (arrows: {
+      up: boolean;
+      down: boolean;
+      left: boolean;
+      right: boolean;
+    }) => void
+  ) => void;
   setOverlayInteractive: (interactive: boolean) => Promise<void>;
   resetOverlayPosition: () => Promise<void>;
   onOverlayInteractive: (callback: (interactive: boolean) => void) => void;
+  setOverlayFocus: (focused: boolean) => Promise<void>;
+  requestOverlayUpdate: () => Promise<void>;
+  moveOverlay: (deltaX: number, deltaY: number) => Promise<void>;
   windowMinimize: () => void;
   windowMaximize: () => void;
   windowClose: () => void;

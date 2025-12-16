@@ -57,6 +57,7 @@
     "keyLabel": "Key",
     "warning": "WARNING: This key may enable specialty to pause in your selection."
   },
+
   "status": {
     "running": "Running",
     "stopped": "Stopped",

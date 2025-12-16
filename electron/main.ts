@@ -147,6 +147,26 @@ function createWindow() {
 
   // Initialize
   registerIpcHandlers();
+
+  // Overlay Focus Handler
+  const { ipcMain } = require("electron");
+  ipcMain.handle("overlay:set-focus", (_: any, focused: boolean) => {
+    const {
+      overlayWindow,
+      setOverlayInteractive,
+    } = require("./overlay-window");
+    // We need to access the overlayWindow instance.
+    // Since overlay-window.ts exports functions, we might need to export a way to get the window or just add this logic there.
+    // Better: Add a function in overlay-window.ts called setOverlayFocus(focused) and call it here.
+    const { setOverlayFocus } = require("./overlay-window");
+    setOverlayFocus(focused);
+  });
+
+  ipcMain.handle("overlay:request-update", () => {
+    const { sendOverlayUpdate } = require("./profile-state");
+    sendOverlayUpdate();
+  });
+
   registerStopKeys(config.stopKeys);
   // startGlobalPoller(); // We disable global poller for start/stop keys, but maybe keep it for stop keys?
   // key-poller.ts handles Stop Keys too.
@@ -154,6 +174,8 @@ function createWindow() {
   // But for now, let's keep startGlobalPoller running but maybe it won't conflict if we remove start/stop logic from it?
   // Or we just let it run. If globalShortcut catches it, key-poller might not see it or vice versa.
   // Better to disable start/stop logic in key-poller.
+  startGlobalPoller();
+  registerGlobalShortcuts();
   startGlobalPoller();
   registerGlobalShortcuts();
 
@@ -189,6 +211,7 @@ app.on("window-all-closed", () => {
 
 app.on("will-quit", () => {
   // Cleanup
+  stopGlobalPoller();
   stopGlobalPoller();
   globalShortcut.unregisterAll();
   destroyOverlay();

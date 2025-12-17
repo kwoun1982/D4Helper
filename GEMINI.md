@@ -8,9 +8,9 @@
 
 ### 프로젝트명
 
-**D4 Helper - Sanctuary Edition (v1.0.1)**
+**D4 Helper - Sanctuary Edition (v2.0.3)**
 
-![UI Screenshot](./docs/images/ui_screenshot_v2.1.png)
+![UI Screenshot](./docs/images/ui_screenshot_v2.0.3.png)
 
 ### 목적
 

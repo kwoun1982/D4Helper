@@ -13,8 +13,8 @@ export default function OverlayApp() {
     // const [isHoveringBtn, setIsHoveringBtn] = useState(false); // Unused
     const [isDragging, setIsDragging] = useState(false);
     const [dragStartPos, setDragStartPos] = useState({ x: 0, y: 0 });
+    const lastScreenPos = useRef({ x: 0, y: 0 }); // Track screen position for dragging
     const btnRef = useRef<HTMLDivElement>(null);
-    const isHoveringRef = useRef(false); // Ref to track hover state without re-renders/dependency issues
 
 
     useEffect(() => {
@@ -39,50 +39,24 @@ export default function OverlayApp() {
             window.electronAPI.requestOverlayUpdate();
         }
 
-        // Global mouse move/up handlers for dragging and hit testing
+        // Global mouse move/up handlers for dragging only
         const handleGlobalMouseMove = (e: MouseEvent) => {
-            // 1. Handle Dragging
+            // Handle Dragging
             if (isDragging) {
-                window.electronAPI.moveOverlay(e.movementX, e.movementY);
-            }
+                const deltaX = e.screenX - lastScreenPos.current.x;
+                const deltaY = e.screenY - lastScreenPos.current.y;
 
-            // 2. Handle Hover/Focus (Hit Testing)
-            // Only needed if NOT in interactive mode (Interactive mode is always focused)
-            if (!isInteractive) {
-                if (btnRef.current) {
-                    const rect = btnRef.current.getBoundingClientRect();
-                    const isOver =
-                        e.clientX >= rect.left &&
-                        e.clientX <= rect.right &&
-                        e.clientY >= rect.top &&
-                        e.clientY <= rect.bottom;
-
-                    if (isOver) {
-                        if (!isHoveringRef.current) {
-                            console.log('[OVERLAY] Hit Test: Enter');
-                            isHoveringRef.current = true;
-                            // setIsHoveringBtn(true); // Unused
-                            window.electronAPI.setOverlayFocus(true);
-                        }
-                    } else {
-                        // If not over, and we WERE hovering, and we are NOT dragging
-                        if (isHoveringRef.current && !isDragging) {
-                            console.log('[OVERLAY] Hit Test: Leave');
-                            isHoveringRef.current = false;
-                            // setIsHoveringBtn(false); // Unused
-                            window.electronAPI.setOverlayFocus(false);
-                        }
-                    }
+                if (deltaX !== 0 || deltaY !== 0) {
+                    window.electronAPI.moveOverlay(deltaX, deltaY);
+                    lastScreenPos.current = { x: e.screenX, y: e.screenY };
                 }
             }
         };
 
-        // We need to cast handleGlobalMouseUp to accept Event or change signature
         const handleGlobalMouseUpWithEvent = (e: MouseEvent) => {
             if (isDragging) {
                 setIsDragging(false);
-
-                // Check if we dropped outside
+                // After drag ends, check if mouse is still over button
                 if (btnRef.current && !isInteractive) {
                     const rect = btnRef.current.getBoundingClientRect();
                     const isOver =
@@ -92,9 +66,7 @@ export default function OverlayApp() {
                         e.clientY <= rect.bottom;
 
                     if (!isOver) {
-                        console.log('[OVERLAY] Drop outside: Release focus');
-                        isHoveringRef.current = false;
-                        // setIsHoveringBtn(false); // Unused
+                        console.log('[OVERLAY] Drag ended outside button: Release focus');
                         window.electronAPI.setOverlayFocus(false);
                     }
                 }
@@ -119,13 +91,43 @@ export default function OverlayApp() {
         <div className={`overlay-container ${isInteractive ? 'interactive' : ''}`}>
 
 
+
+
+            <div className="profile-status-list">
+                {profiles.map((profile) => (
+                    <div
+                        key={profile.startStopKey}
+                        className={`profile-item ${profile.state}`}
+                    >
+                        <span className="profile-name">{profile.profileName}</span>
+                        <span className="profile-key">[{profile.startStopKey}]</span>
+                        <span className="profile-state">{profile.state.toUpperCase()}</span>
+                    </div>
+                ))}
+            </div>
+
             <div
                 ref={btnRef}
                 className={`layout-toggle-btn ${isInteractive ? 'active' : ''}`}
                 // Removed onMouseEnter/onMouseLeave in favor of global hit testing
+                // Added back as backup for robustness
+                onMouseEnter={() => {
+                    if (!isInteractive) {
+                        console.log('[OVERLAY] Button MouseEnter');
+                        window.electronAPI.setOverlayFocus(true);
+                    }
+                }}
+                onMouseLeave={() => {
+                    // Don't disable focus while dragging
+                    if (!isDragging && !isInteractive) {
+                        console.log('[OVERLAY] Button MouseLeave');
+                        window.electronAPI.setOverlayFocus(false);
+                    }
+                }}
                 onMouseDown={(e) => {
                     setIsDragging(true);
                     setDragStartPos({ x: e.clientX, y: e.clientY });
+                    lastScreenPos.current = { x: e.screenX, y: e.screenY }; // Initialize screen pos
                 }}
                 onClick={(e) => {
                     // Calculate distance moved
@@ -141,24 +143,10 @@ export default function OverlayApp() {
                     }
 
                     console.log('Button Clicked (No action)');
-                    // Interactive mode toggle removed as per user request
                 }}
-                title="Layout Mode"
+                title="Move Overlay"
             >
-                📐
-            </div>
-
-            <div className="profile-status-list">
-                {profiles.map((profile) => (
-                    <div
-                        key={profile.startStopKey}
-                        className={`profile-item ${profile.state}`}
-                    >
-                        <span className="profile-name">{profile.profileName}</span>
-                        <span className="profile-key">[{profile.startStopKey}]</span>
-                        <span className="profile-state">{profile.state.toUpperCase()}</span>
-                    </div>
-                ))}
+                ✥
             </div>
 
 

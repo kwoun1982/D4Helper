@@ -21,9 +21,18 @@ html, body {
     flex-direction: column;
     gap: 8px;
     pointer-events: none; /* Click-through */
-    align-items: flex-start; /* Left align */
+    align-items: center; /* Center align */
     position: relative; /* Ensure absolute children are relative to this */
-    margin-top: 40px; /* Push content down to make room for button */
+    margin-top: 0; /* Removed top margin */
+}
+
+.profile-status-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+    width: 100%;
+    pointer-events: none; /* Don't block drag button */
 }
 
 .profile-item {
@@ -163,9 +172,9 @@ html, body {
 }
 
 .layout-toggle-btn {
-    position: absolute;
-    top: -35px; /* Position above the list */
-    left: 12px; /* Align with padding */
+    /* Position relative to flow now */
+    margin-top: 8px;
+    align-self: center; /* Center the button */
     width: 32px;
     height: 32px;
     display: flex;

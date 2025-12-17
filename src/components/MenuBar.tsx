@@ -14,7 +14,7 @@ interface MenuBarProps {
   onResetOverlay?: () => void;
 }
 
-export default function MenuBar({ onSave, onSaveAs, onLoad, onLanguageChange, currentLanguage, currentFile = '기본 설정', isOverlayInteractive, onToggleOverlayInteractive, onResetOverlay }: MenuBarProps) {
+export default function MenuBar({ onSave, onSaveAs, onLoad, onLanguageChange, currentLanguage, currentFile = '기본 설정', onResetOverlay }: MenuBarProps) {
   const { t } = useTranslation();
 
   return (
@@ -30,24 +30,13 @@ export default function MenuBar({ onSave, onSaveAs, onLoad, onLanguageChange, cu
         <button className="menu-icon-btn" onClick={onSaveAs} title={t('menu.saveAs')}>
           💾+ {t('menu.saveAs')}
         </button>
-        {onToggleOverlayInteractive && (
-          <button
-            className={`menu-icon-btn ${isOverlayInteractive ? 'active' : ''}`}
-            onClick={onToggleOverlayInteractive}
-            title={t('menu.showLayout')}
-            style={{ marginLeft: '10px', color: isOverlayInteractive ? '#4a9eff' : undefined }}
-          >
-            📐 {t('menu.showLayout')}
-          </button>
-        )}
-        {isOverlayInteractive && onResetOverlay && (
+        {onResetOverlay && (
           <button
             className="menu-icon-btn"
             onClick={onResetOverlay}
             title={t('menu.resetLayout')}
-            style={{ marginLeft: '5px', color: '#ff6b6b' }}
           >
-            ↺
+            <span style={{ color: '#ff6b6b', marginRight: '4px', fontWeight: 'bold' }}>↺</span> {t('menu.resetLayout')}
           </button>
         )}
       </div>

@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.0.3] - 2025-12-17
+
+### Fixed
+
+- **Overlay Dragging**: Fixed an issue where the overlay window would not move when dragged. Implemented a robust manual delta calculation using screen coordinates.
+
+### Changed
+
+- **Build System**: Added NSIS installer support. Now generates `D4Helper_Setup_v2.0.3.exe` for easier installation.
+- **Documentation**: Updated `README.md` and `GEMINI.md` with the latest screenshots and version information.
+- **Version Bump**: Updated application version to 2.0.3.
+
+---
+
 ## [2.0.1] - 2025-12-13
 
 ### Added

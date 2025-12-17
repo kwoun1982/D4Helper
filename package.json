@@ -1,6 +1,6 @@
 {
   "name": "d4-helper",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Diablo 4 Helper - Sanctuary Edition",
   "author": "WAYNE",
   "main": "dist-electron/electron/main.js",
@@ -26,11 +26,20 @@
           "arch": [
             "x64"
           ]
+        },
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
         }
-      ],
+      ]
+    },
+    "portable": {
       "artifactName": "D4Helper_v${version}.${ext}"
     },
     "nsis": {
+      "artifactName": "D4Helper_Setup_v${version}.${ext}",
       "oneClick": false,
       "perMachine": true,
       "allowToChangeInstallationDirectory": true,

@@ -113,7 +113,7 @@ const DEFAULT_SKILL_SLOTS: SkillSlotConfig[] = [
 ];
 
 export const DEFAULT_CONFIG: AppConfig = {
-  version: "2.0.2", // Version bump
+  version: "2.0.3", // Version bump
   language: "ko",
 
   stopKeys: {

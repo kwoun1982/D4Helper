@@ -18,12 +18,13 @@ export default function TitleBar({ }: TitleBarProps) {
     <div className="title-bar">
       <div className="title-bar-left">
         <span className="app-icon">⚔</span>
-        <span className="app-name">D4HELPER v2.0.1</span>
+        <span className="app-name">D4HELPER v2.0.3</span>
       </div>
 
       <div className="title-bar-center">
         <span className="decoration">❖ ❖ ❖ ❖ ❖</span>
         <span className="app-title">DIABLO 4 HELPER - SANCTUARY EDITION</span>
+        <span className="decoration">❖ ❖ ❖ ❖ ❖</span>
       </div>
 
       <div className="title-bar-right">

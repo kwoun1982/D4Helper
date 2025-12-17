@@ -52,6 +52,13 @@
   align-items: center;
   text-transform: uppercase;
   font-weight: 600;
+  
+  /* Absolute centering */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  justify-content: center;
 }
 
 .decoration {

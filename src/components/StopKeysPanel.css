@@ -41,40 +41,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 10px;
+  padding: 6px 8px; /* Reduced horizontal padding */
   background: var(--bg-tertiary-gradient);
   border: 1px solid var(--border-dark);
   border-radius: 4px;
   
   position: relative;
   overflow: hidden;
+  width: 100%; /* Ensure full width */
 }
 
-.stop-key-row::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.08), transparent);
-  
-}
-
-.stop-key-row:hover {
-  border-color: var(--border-gold);
-  background: linear-gradient(135deg, #352828 0%, #3a2525 100%);
-  box-shadow: var(--shadow-sm), -2px 0 8px var(--accent-gold-glow);
-}
-
-.stop-key-row:hover::before {
-  left: 100%;
-}
+/* ... existing hover styles ... */
 
 .stop-key-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px; /* Reduced gap */
+  flex: 1;
+  min-width: 0; /* Allow text truncation */
+  overflow: hidden;
 }
 
 .stop-key-icon {
@@ -83,13 +68,10 @@
   text-align: center;
   color: var(--text-red);
   filter: drop-shadow(0 0 4px rgba(255, 107, 107, 0.5));
-  
+  flex-shrink: 0;
 }
 
-.stop-key-row:hover .stop-key-icon {
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 6px rgba(255, 107, 107, 0.7));
-}
+/* ... hover icon styles ... */
 
 .stop-key-name {
   font-size: 12px;
@@ -97,66 +79,9 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Enhanced Toggle Switch */
-.diablo-toggle {
-  position: relative;
-  width: 40px;
-  height: 20px;
-  display: inline-block;
-}
-
-.diablo-toggle input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.toggle-slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, #0a0505 0%, #1a0a0a 100%);
-  border: 2px solid var(--border-dark);
-  border-radius: 20px;
-  
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.toggle-slider:hover {
-  border-color: var(--border-gold);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5), 0 0 8px var(--accent-gold-glow);
-}
-
-.toggle-slider:before {
-  position: absolute;
-  content: "";
-  height: 12px;
-  width: 12px;
-  left: 3px;
-  bottom: 2px;
-  background: linear-gradient(135deg, #3d2020 0%, #2a1515 100%);
-  border-radius: 50%;
-  
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-input:checked + .toggle-slider {
-  background: linear-gradient(135deg, #3a1010 0%, #4a1515 100%);
-  border-color: var(--border-red-bright);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5), 0 0 12px var(--accent-red-glow);
-}
-
-input:checked + .toggle-slider:before {
-  transform: translateX(20px);
-  background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-red-hover) 100%);
-  box-shadow: 0 0 12px var(--accent-red-glow), 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-input:checked + .toggle-slider:hover {
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5), 0 0 16px var(--accent-red-glow);
-}
+/* Toggle styles removed - using global diablo-theme.css */

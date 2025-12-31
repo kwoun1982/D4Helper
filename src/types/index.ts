@@ -158,4 +158,5 @@ export interface IpcChannels {
   "config:save": (config: AppConfig) => Promise<{ success: boolean }>;
   "config:load": () => Promise<AppConfig>;
   "status:update": (status: MacroStatus) => void;
+  "overlay:toggle": (enabled: boolean) => Promise<{ success: boolean }>;
 }

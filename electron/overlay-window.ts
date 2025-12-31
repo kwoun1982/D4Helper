@@ -59,6 +59,15 @@ export function createOverlayWindow() {
       overlayWindow?.show();
     });
 
+    overlayWindow.webContents.on(
+      "did-fail-load",
+      (event, errorCode, errorDescription) => {
+        console.error(
+          `[OVERLAY] Failed to load: ${errorDescription} (${errorCode})`
+        );
+      }
+    );
+
     overlayWindow.on("move", () => {
       if (overlayWindow && !overlayWindow.isDestroyed()) {
         const [newX, newY] = overlayWindow.getPosition();

@@ -178,4 +178,34 @@ export function registerIpcHandlers() {
     moveOverlay(deltaX, deltaY);
     return { success: true };
   });
+
+  ipcMain.handle("overlay:set-focus", (_, focused) => {
+    const { setOverlayFocus } = require("./overlay-window");
+    setOverlayFocus(focused);
+  });
+
+  ipcMain.handle("overlay:request-update", () => {
+    const { sendOverlayUpdate } = require("./profile-state");
+    sendOverlayUpdate();
+  });
+
+  ipcMain.handle("overlay:toggle", (_, enabled) => {
+    console.log(`[MAIN] Toggling overlay: ${enabled}`);
+    const config = getConfig();
+    config.overlay.enabled = enabled;
+    require("./config-manager").saveConfig(config);
+
+    const { createOverlayWindow, destroyOverlay } = require("./overlay-window");
+    const { sendOverlayUpdate } = require("./profile-state");
+
+    if (enabled) {
+      createOverlayWindow();
+      setTimeout(() => {
+        sendOverlayUpdate();
+      }, 500);
+    } else {
+      destroyOverlay();
+    }
+    return { success: true };
+  });
 }

@@ -82,9 +82,16 @@ export default function OverlayApp() {
         };
     }, [isDragging, isInteractive]); // Removed isHoveringBtn from deps as we use ref
 
-    // Show even if empty (though backend should send all profiles now)
+    // Show even if empty
     if (profiles.length === 0 && !isInteractive) {
-        return null;
+        return (
+            <div className="overlay-container">
+                <div className="profile-item stopped">
+                    <span className="profile-name">D4 Helper Ready</span>
+                    <span className="profile-state">IDLE</span>
+                </div>
+            </div>
+        );
     }
 
     return (

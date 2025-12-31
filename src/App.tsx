@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import TitleBar from './components/TitleBar';
 import MenuBar from './components/MenuBar';
 import StopKeysPanel from './components/StopKeysPanel';
+import ExtraPanel from './components/ExtraPanel';
 
 import SkillKeysGrid from './components/SkillKeysGrid';
 import ProfileList from './components/ProfileList';
@@ -235,6 +236,12 @@ function App() {
     await window.electronAPI.configSave(newConfig);
   };
 
+  const handleToggleOverlay = async (enabled: boolean) => {
+    const newConfig = { ...config, overlay: { ...config.overlay, enabled } };
+    setConfig(newConfig);
+    await window.electronAPI.toggleOverlay(enabled);
+  };
+
   // Ensure profiles exist and get selected profile
   const selectedProfile = (config.profiles && config.profiles.length > 0)
     ? getSelectedProfile()
@@ -290,6 +297,12 @@ function App() {
             }}
           />
 
+        </div>
+        <div className="fourth-panel">
+          <ExtraPanel
+            overlayEnabled={config.overlay?.enabled ?? true}
+            onToggleOverlay={handleToggleOverlay}
+          />
         </div>
       </div>
 

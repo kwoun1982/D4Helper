@@ -82,9 +82,9 @@ function createWindow() {
 
   mainWindow = new BrowserWindow({
     title: "D4 Helper", // Set explicit title
-    width: 1056,
+    width: 1400,
     height: 675, // Reduced by 10% (750 -> 675)
-    minWidth: 1023,
+    minWidth: 1350,
     minHeight: 648, // Reduced by 10% (720 -> 648)
     resizable: false, // User requested to remove maximize, implying fixed size or no resizing
     webPreferences: {
@@ -148,24 +148,7 @@ function createWindow() {
   // Initialize
   registerIpcHandlers();
 
-  // Overlay Focus Handler
-  const { ipcMain } = require("electron");
-  ipcMain.handle("overlay:set-focus", (_: any, focused: boolean) => {
-    const {
-      overlayWindow,
-      setOverlayInteractive,
-    } = require("./overlay-window");
-    // We need to access the overlayWindow instance.
-    // Since overlay-window.ts exports functions, we might need to export a way to get the window or just add this logic there.
-    // Better: Add a function in overlay-window.ts called setOverlayFocus(focused) and call it here.
-    const { setOverlayFocus } = require("./overlay-window");
-    setOverlayFocus(focused);
-  });
-
-  ipcMain.handle("overlay:request-update", () => {
-    const { sendOverlayUpdate } = require("./profile-state");
-    sendOverlayUpdate();
-  });
+  // Overlay handlers moved to ipc-handlers.ts
 
   registerStopKeys(config.stopKeys);
   // startGlobalPoller(); // We disable global poller for start/stop keys, but maybe keep it for stop keys?

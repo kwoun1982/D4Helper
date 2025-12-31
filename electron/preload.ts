@@ -58,6 +58,8 @@ contextBridge.exposeInMainWorld("electronAPI", {
   requestOverlayUpdate: () => ipcRenderer.invoke("overlay:request-update"),
   moveOverlay: (deltaX: number, deltaY: number) =>
     ipcRenderer.invoke("overlay:move", { deltaX, deltaY }),
+  toggleOverlay: (enabled: boolean) =>
+    ipcRenderer.invoke("overlay:toggle", enabled),
 });
 
 // Type declaration for window.electronAPI
@@ -106,6 +108,7 @@ declare global {
       setOverlayInteractive: (interactive: boolean) => Promise<void>;
       resetOverlayPosition: () => Promise<void>;
       onOverlayInteractive: (callback: (interactive: boolean) => void) => void;
+      toggleOverlay: (enabled: boolean) => Promise<{ success: boolean }>;
     };
   }
 }

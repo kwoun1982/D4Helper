@@ -44,6 +44,7 @@ export interface ElectronAPI {
   setOverlayFocus: (focused: boolean) => Promise<void>;
   requestOverlayUpdate: () => Promise<void>;
   moveOverlay: (deltaX: number, deltaY: number) => Promise<void>;
+  toggleOverlay: (enabled: boolean) => Promise<{ success: boolean }>;
   windowMinimize: () => void;
   windowMaximize: () => void;
   windowClose: () => void;

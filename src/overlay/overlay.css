@@ -102,6 +102,26 @@ html, body {
     box-shadow: none;
 }
 
+/* Legion Style - Cyan/Purple Theme */
+.profile-item.legion {
+    border-color: #5c8aff; /* Blue border hint */
+}
+
+.profile-item.legion::before {
+    background: linear-gradient(to bottom, #5c8aff, #9a5cff);
+    box-shadow: 0 0 8px #5c8aff, 0 0 15px #9a5cff; /* Blue-Purple Glow */
+}
+
+.profile-item.legion .profile-name {
+    color: #f0f0f0;
+    text-shadow: 0 2px 2px rgba(0,0,0,1);
+}
+
+.profile-item.legion .profile-state {
+    color: #7cb3ff;
+    text-shadow: 0 0 5px rgba(92, 138, 255, 0.8);
+}
+
 .profile-name {
     font-weight: 700;
     font-size: 15px;

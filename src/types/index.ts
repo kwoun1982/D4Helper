@@ -61,6 +61,16 @@ export interface AppConfig {
     position: { x: number; y: number };
   };
 
+  // Event Timer Settings
+  helltideEnabled: boolean;
+  worldBossEnabled: boolean;
+  legionEnabled: boolean;
+
+  // Helltide Overlay Settings (position persistence)
+  helltideOverlay?: {
+    position?: { x: number; y: number };
+  };
+
   // Main Window Settings
   windowPosition?: { x: number; y: number };
 
@@ -146,7 +156,66 @@ export const DEFAULT_CONFIG: AppConfig = {
     enabled: true,
     position: { x: 10, y: 10 },
   },
+
+  helltideEnabled: false,
+  worldBossEnabled: false,
+  legionEnabled: false,
 };
+
+export interface EventTimersData {
+  helltide: {
+    status: string; // "Active" | "Next in"
+    time: string;
+    nextTime?: string;
+  };
+  worldBoss: {
+    name: string;
+    time: string;
+    nextTime?: string;
+  };
+  legion: {
+    time: string;
+    nextTime?: string;
+  };
+}
+
+// Armory Types
+export interface ArmoryAccount {
+  battleTag: string;
+  characters: ArmoryCharacterSummary[];
+}
+
+export interface ArmoryCharacterSummary {
+  id: string;
+  name: string;
+  class: string;
+  level: number;
+  hardcore: boolean;
+  seasonal: boolean;
+}
+
+export interface ArmoryCharacterDetails extends ArmoryCharacterSummary {
+  power: number;
+  life: number;
+  strength: number;
+  intelligence: number;
+  willpower: number;
+  dexterity: number;
+  equipment: ArmoryEquipment[];
+  skills: ArmorySkill[];
+}
+
+export interface ArmoryEquipment {
+  slot: string;
+  name: string;
+  quality: string;
+  power: number;
+}
+
+export interface ArmorySkill {
+  name: string;
+  rank: number;
+}
 
 // IPC 채널 타입
 export interface IpcChannels {

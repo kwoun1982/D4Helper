@@ -163,6 +163,21 @@ export function updateOverlayStatus(
   }
 }
 
+export function sendHelltideUpdate(data: any) {
+  if (overlayWindow && !overlayWindow.isDestroyed()) {
+    overlayWindow.webContents.send("helltide:update", data);
+  }
+}
+
+export function sendHelltideStateChange(state: {
+  feature: string;
+  enabled: boolean;
+}) {
+  if (overlayWindow && !overlayWindow.isDestroyed()) {
+    overlayWindow.webContents.send("helltide:state-change", state);
+  }
+}
+
 export function showOverlay() {
   if (overlayWindow && !overlayWindow.isDestroyed()) {
     overlayWindow.show();

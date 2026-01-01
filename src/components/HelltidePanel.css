@@ -1,0 +1,98 @@
+.helltide-panel-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.helltide-card {
+    flex: 1;
+    background: var(--bg-tertiary-gradient);
+    border: 1px solid var(--border-dark);
+    border-radius: 4px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    min-width: 0; /* Allow shrinking */
+}
+
+.helltide-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    padding: 1px;
+    background: linear-gradient(135deg, transparent 0%, var(--border-gold) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.3;
+}
+
+.helltide-card:hover {
+    border-color: var(--border-gold);
+    box-shadow: var(--shadow-md), 0 0 12px var(--accent-gold-glow);
+}
+
+.card-header {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    padding-bottom: 4px;
+    margin-bottom: 2px;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 2px;
+}
+
+.status {
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.status.active {
+    color: #ff4d4d; /* Red for active helltide */
+    text-shadow: 0 0 8px rgba(255, 77, 77, 0.6);
+    animation: pulse 2s infinite;
+}
+
+.boss-name, .event-name {
+    font-size: 11px;
+    color: var(--text-primary);
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.timer {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-gold-bright);
+    text-shadow: 0 0 5px var(--accent-gold-glow);
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { opacity: 1; }
+}

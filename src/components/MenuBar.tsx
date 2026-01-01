@@ -12,9 +12,10 @@ interface MenuBarProps {
   isOverlayInteractive?: boolean;
   onToggleOverlayInteractive?: () => void;
   onResetOverlay?: () => void;
+  onOpenArmory?: () => void;
 }
 
-export default function MenuBar({ onSave, onSaveAs, onLoad, onLanguageChange, currentLanguage, currentFile = '기본 설정', onResetOverlay }: MenuBarProps) {
+export default function MenuBar({ onSave, onSaveAs, onLoad, onLanguageChange, currentLanguage, currentFile = '기본 설정', onResetOverlay, onOpenArmory }: MenuBarProps) {
   const { t } = useTranslation();
 
   return (
@@ -37,6 +38,15 @@ export default function MenuBar({ onSave, onSaveAs, onLoad, onLanguageChange, cu
             title={t('menu.resetLayout')}
           >
             <span style={{ color: '#ff6b6b', marginRight: '4px', fontWeight: 'bold' }}>↺</span> {t('menu.resetLayout')}
+          </button>
+        )}
+        {onOpenArmory && (
+          <button
+            className="menu-icon-btn"
+            onClick={onOpenArmory}
+            title="Armory"
+          >
+            ⚔️ Armory
           </button>
         )}
       </div>

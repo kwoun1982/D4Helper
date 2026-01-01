@@ -7,8 +7,20 @@ interface ProfileStatus {
     state: 'running' | 'paused' | 'stopped';
 }
 
+interface EventTimersData {
+    helltide: { status: string; time: string };
+    worldBoss: { name: string; time: string };
+    legion: { time: string };
+}
+
 export default function OverlayApp() {
     const [profiles, setProfiles] = useState<ProfileStatus[]>([]);
+    const [eventTimers, setEventTimers] = useState<EventTimersData | null>(null);
+    const [config, setConfig] = useState<{ helltideEnabled: boolean; worldBossEnabled: boolean; legionEnabled: boolean }>({
+        helltideEnabled: false,
+        worldBossEnabled: false,
+        legionEnabled: false
+    });
     const [isInteractive, setIsInteractive] = useState(false);
     // const [isHoveringBtn, setIsHoveringBtn] = useState(false); // Unused
     const [isDragging, setIsDragging] = useState(false);
@@ -24,6 +36,35 @@ export default function OverlayApp() {
         };
 
         window.electronAPI.onOverlayUpdate(handleUpdate);
+
+        // Helltide updates
+        if (window.electronAPI.onHelltideUpdate) {
+            window.electronAPI.onHelltideUpdate((data: any) => {
+                setEventTimers(data);
+            });
+        }
+
+        // Load initial config for toggles
+        window.electronAPI.configLoad().then((loadedConfig: any) => {
+            setConfig({
+                helltideEnabled: loadedConfig.helltideEnabled,
+                worldBossEnabled: loadedConfig.worldBossEnabled,
+                legionEnabled: loadedConfig.legionEnabled
+            });
+        });
+
+        // Listen for config changes (toggles)
+        if (window.electronAPI.onHelltideStateChange) {
+            window.electronAPI.onHelltideStateChange((state) => {
+                setConfig(prev => {
+                    const newConfig = { ...prev };
+                    if (state.feature === 'helltide') newConfig.helltideEnabled = state.enabled;
+                    if (state.feature === 'worldBoss') newConfig.worldBossEnabled = state.enabled;
+                    if (state.feature === 'legion') newConfig.legionEnabled = state.enabled;
+                    return newConfig;
+                });
+            });
+        }
 
 
 
@@ -112,6 +153,9 @@ export default function OverlayApp() {
                     </div>
                 ))}
             </div>
+
+            {/* Helltide Timers */}
+            {/* Helltide Timers removed - moved to separate window */}
 
             <div
                 ref={btnRef}

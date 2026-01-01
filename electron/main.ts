@@ -1,4 +1,13 @@
 import { app, BrowserWindow, globalShortcut, nativeImage } from "electron";
+
+// GPU process crash workaround for Windows
+// If GPU process keeps crashing, use software rendering as fallback
+app.commandLine.appendSwitch("disable-gpu-sandbox");
+app.commandLine.appendSwitch("no-sandbox");
+
+// Hardware acceleration is REQUIRED for transparency on Windows 11
+// app.disableHardwareAcceleration(); // Ensure this is NOT called
+
 console.log("🚀 [MAIN] Electron Main Process Starting...");
 import * as path from "path";
 import { registerIpcHandlers } from "./ipc-handlers";
@@ -21,6 +30,12 @@ try {
 import { getConfig } from "./config-manager";
 import { createOverlayWindow, destroyOverlay } from "./overlay-window";
 import { sendOverlayUpdate } from "./profile-state";
+import { startHelltideCrawler, stopHelltideCrawler } from "./helltide-crawler";
+import {
+  createHelltideOverlayWindow,
+  destroyHelltideOverlay,
+  sendHelltideUpdateToOverlay,
+} from "./helltide-overlay-window";
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -116,7 +131,7 @@ function createWindow() {
 
   if (process.env.NODE_ENV === "development") {
     mainWindow.loadURL("http://localhost:5173");
-    // mainWindow.webContents.openDevTools(); // Optional: Keep closed by default
+    mainWindow.webContents.openDevTools(); // Debug: Check for errors
   } else {
     mainWindow.loadFile(path.join(__dirname, "../../dist/index.html"));
   }
@@ -159,8 +174,6 @@ function createWindow() {
   // Better to disable start/stop logic in key-poller.
   startGlobalPoller();
   registerGlobalShortcuts();
-  startGlobalPoller();
-  registerGlobalShortcuts();
 
   // Create overlay window if enabled
   console.log("[MAIN] Overlay config:", config.overlay);
@@ -173,6 +186,25 @@ function createWindow() {
     }, 1000); // Wait for window to load
   } else {
     console.log("[MAIN] Overlay disabled or not configured");
+  }
+
+  // Start Helltide Crawler (Forced for debugging)
+  createHelltideOverlayWindow();
+
+  if (
+    config.helltideEnabled ||
+    config.worldBossEnabled ||
+    config.legionEnabled
+  ) {
+    startHelltideCrawler((data) => {
+      if (mainWindow && !mainWindow.isDestroyed()) {
+        mainWindow.webContents.send("helltide:update", data);
+      }
+      // Send to both overlays (if they exist)
+      // The main overlay might still have listeners if we didn't fully remove logic, but we moved it.
+      // But we definitely send to the new one.
+      sendHelltideUpdateToOverlay(data);
+    });
   }
 }
 
@@ -198,4 +230,6 @@ app.on("will-quit", () => {
   stopGlobalPoller();
   globalShortcut.unregisterAll();
   destroyOverlay();
+  destroyHelltideOverlay();
+  stopHelltideCrawler();
 });

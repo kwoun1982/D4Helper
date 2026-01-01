@@ -61,6 +61,34 @@ export function getConfig(): AppConfig {
     // Default to center-ish or let Electron decide (undefined)
   }
 
+  // Migration 5: Add helltide settings if missing
+  if (currentConfig.helltideEnabled === undefined) {
+    console.log("Migrating config: Adding helltide settings...");
+    currentConfig.helltideEnabled = false;
+    currentConfig.worldBossEnabled = false;
+    currentConfig.legionEnabled = false;
+    store.set("config", currentConfig);
+  }
+
+  // Migration 6: Reset helltideOverlay position to default (right of profile layout)
+  // This fixes issues where the overlay was positioned incorrectly
+  const DEFAULT_OVERLAY_POSITION = { x: 610, y: 70 };
+  if (
+    !currentConfig.helltideOverlay ||
+    (currentConfig.helltideOverlay.position?.x === 180 &&
+      currentConfig.helltideOverlay.position?.y === 60) ||
+    (currentConfig.helltideOverlay.position?.x === 1150 &&
+      currentConfig.helltideOverlay.position?.y === 350) ||
+    (currentConfig.helltideOverlay.position?.x === 10 &&
+      currentConfig.helltideOverlay.position?.y === 10)
+  ) {
+    console.log(
+      "Migrating config: Resetting helltideOverlay position to default..."
+    );
+    currentConfig.helltideOverlay = { position: DEFAULT_OVERLAY_POSITION };
+    store.set("config", currentConfig);
+  }
+
   return currentConfig;
 }
 

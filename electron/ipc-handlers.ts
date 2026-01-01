@@ -169,7 +169,14 @@ export function registerIpcHandlers() {
 
   ipcMain.handle("overlay:reset-position", async () => {
     const { resetOverlayPosition } = require("./overlay-window");
+    const {
+      resetHelltideOverlayPosition,
+    } = require("./helltide-overlay-window");
+
     resetOverlayPosition();
+    resetHelltideOverlayPosition();
+
+    console.log("[MAIN] All overlay positions reset to default");
     return { success: true };
   });
 
@@ -207,5 +214,82 @@ export function registerIpcHandlers() {
       destroyOverlay();
     }
     return { success: true };
+  });
+
+  ipcMain.handle("helltide:toggle", (_, { feature, enabled }) => {
+    const config = getConfig();
+    if (feature === "helltide") config.helltideEnabled = enabled;
+    if (feature === "worldBoss") config.worldBossEnabled = enabled;
+    if (feature === "legion") config.legionEnabled = enabled;
+
+    require("./config-manager").saveConfig(config);
+
+    const {
+      startHelltideCrawler,
+      stopHelltideCrawler,
+    } = require("./helltide-crawler");
+
+    const {
+      sendHelltideUpdate,
+      sendHelltideStateChange,
+    } = require("./overlay-window");
+
+    const {
+      createHelltideOverlayWindow,
+      destroyHelltideOverlay,
+      sendHelltideUpdateToOverlay,
+      sendHelltideStateChangeToOverlay,
+    } = require("./helltide-overlay-window");
+
+    // Notify overlay about state change
+    sendHelltideStateChange({ feature, enabled });
+    sendHelltideStateChangeToOverlay({ feature, enabled });
+
+    // Check if any feature is enabled
+    if (
+      config.helltideEnabled ||
+      config.worldBossEnabled ||
+      config.legionEnabled
+    ) {
+      createHelltideOverlayWindow();
+
+      startHelltideCrawler((data: any) => {
+        const win = BrowserWindow.getAllWindows().find(
+          (w) => !w.isDestroyed() && w.getTitle() === "D4 Helper"
+        );
+        if (win) {
+          win.webContents.send("helltide:update", data);
+        }
+        sendHelltideUpdate(data); // Legacy/Main overlay
+        sendHelltideUpdateToOverlay(data); // New overlay
+      });
+    } else {
+      stopHelltideCrawler();
+      destroyHelltideOverlay();
+    }
+    return { success: true };
+  });
+
+  // Helltide Overlay Controls
+  ipcMain.handle("helltide-overlay:move", async (_, { deltaX, deltaY }) => {
+    const { moveHelltideOverlay } = require("./helltide-overlay-window");
+    moveHelltideOverlay(deltaX, deltaY);
+    return { success: true };
+  });
+
+  ipcMain.handle("helltide-overlay:set-focus", (_, focused) => {
+    const { setHelltideOverlayFocus } = require("./helltide-overlay-window");
+    setHelltideOverlayFocus(focused);
+  });
+
+  // Armory
+  ipcMain.handle("armory:get-account", async (_, battleTag: string) => {
+    const { getAccount } = require("./armory-fetcher");
+    return getAccount(battleTag);
+  });
+
+  ipcMain.handle("armory:get-character", async (_, { battleTag, heroId }) => {
+    const { getCharacter } = require("./armory-fetcher");
+    return getCharacter(battleTag, heroId);
   });
 }

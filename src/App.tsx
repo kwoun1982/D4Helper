@@ -302,6 +302,17 @@ function App() {
           <ExtraPanel
             overlayEnabled={config.overlay?.enabled ?? true}
             onToggleOverlay={handleToggleOverlay}
+            helltideEnabled={config.helltideEnabled ?? false}
+            worldBossEnabled={config.worldBossEnabled ?? false}
+            legionEnabled={config.legionEnabled ?? false}
+            onToggleFeature={async (feature, enabled) => {
+              const newConfig = { ...config };
+              if (feature === 'helltide') newConfig.helltideEnabled = enabled;
+              if (feature === 'worldBoss') newConfig.worldBossEnabled = enabled;
+              if (feature === 'legion') newConfig.legionEnabled = enabled;
+              setConfig(newConfig);
+              await window.electronAPI.helltideToggle(feature, enabled);
+            }}
           />
         </div>
       </div>

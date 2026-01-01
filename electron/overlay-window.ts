@@ -15,7 +15,9 @@ export function createOverlayWindow() {
 
     const { getConfig } = require("./config-manager");
     const config = getConfig();
-    const { x, y } = config.overlay?.position || { x: 10, y: 10 };
+    const constants = require("./const.json");
+    const { x, y } =
+      config.overlay?.position || constants.overlay.defaultPosition;
 
     console.log(`[OVERLAY] Creating new BrowserWindow at ${x}, ${y}...`);
     overlayWindow = new BrowserWindow({
@@ -200,17 +202,20 @@ export function destroyOverlay() {
 export function resetOverlayPosition() {
   // Always update config first
   const { getConfig, saveConfig } = require("./config-manager");
+  const constants = require("./const.json");
+  const defaultPos = constants.overlay.defaultPosition;
+
   const currentConfig = getConfig();
   if (!currentConfig.overlay) {
     currentConfig.overlay = {};
   }
-  currentConfig.overlay.position = { x: 20, y: 20 };
+  currentConfig.overlay.position = defaultPos;
   saveConfig(currentConfig);
-  console.log("[OVERLAY] Config reset to (20, 20)");
+  console.log(`[OVERLAY] Config reset to (${defaultPos.x}, ${defaultPos.y})`);
 
   if (overlayWindow && !overlayWindow.isDestroyed()) {
     console.log("[OVERLAY] Resetting existing window position");
-    overlayWindow.setPosition(20, 20);
+    overlayWindow.setPosition(defaultPos.x, defaultPos.y);
     overlayWindow.show(); // Ensure it's visible
     // If we are in interactive mode, ensure it's focusable?
     // The renderer calls this when interactive mode is ON, so we should probably ensure it's interactive.

@@ -6,7 +6,7 @@ app.commandLine.appendSwitch("disable-gpu-sandbox");
 app.commandLine.appendSwitch("no-sandbox");
 
 // Hardware acceleration is REQUIRED for transparency on Windows 11
-// app.disableHardwareAcceleration(); // Ensure this is NOT called
+app.disableHardwareAcceleration(); // Ensure this is NOT called
 
 console.log("🚀 [MAIN] Electron Main Process Starting...");
 import * as path from "path";
@@ -143,6 +143,7 @@ function createWindow() {
     stopGlobalPoller();
     globalShortcut.unregisterAll();
     destroyOverlay(); // Ensure overlay closes with main window
+    destroyHelltideOverlay();
   });
 
   mainWindow.on("focus", () => {

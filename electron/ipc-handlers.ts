@@ -163,7 +163,11 @@ export function registerIpcHandlers() {
   // Overlay Controls
   ipcMain.handle("overlay:set-interactive", async (_, interactive: boolean) => {
     const { setOverlayInteractive } = require("./overlay-window");
+    const {
+      setHelltideOverlayInteractive,
+    } = require("./helltide-overlay-window");
     setOverlayInteractive(interactive);
+    setHelltideOverlayInteractive(interactive);
     return { success: true };
   });
 

@@ -16,8 +16,9 @@ export function createHelltideOverlayWindow() {
 
     const { getConfig } = require("./config-manager");
     const config = getConfig();
+    const constants = require("./const.json");
     // Default position: right side of the profile layout overlay
-    const DEFAULT_POSITION = { x: 610, y: 70 };
+    const DEFAULT_POSITION = constants.helltideOverlay.defaultPosition;
     const { x, y } = config.helltideOverlay?.position || DEFAULT_POSITION;
 
     console.log(
@@ -161,7 +162,8 @@ export function hideHelltideOverlay() {
 
 export function resetHelltideOverlayPosition() {
   // Default position: right side of the profile layout overlay
-  const defaultPosition = { x: 610, y: 70 };
+  const constants = require("./const.json");
+  const defaultPosition = constants.helltideOverlay.defaultPosition;
 
   if (helltideOverlayWindow && !helltideOverlayWindow.isDestroyed()) {
     helltideOverlayWindow.setPosition(defaultPosition.x, defaultPosition.y);

@@ -47,24 +47,36 @@ declare global {
       onOverlayInteractive: (callback: (interactive: boolean) => void) => void;
       toggleOverlay: (enabled: boolean) => Promise<{ success: boolean }>;
 
+      setOverlayFocus: (focused: boolean) => Promise<void>;
+      requestOverlayUpdate: () => Promise<void>;
+      moveOverlay: (deltaX: number, deltaY: number) => Promise<void>;
+      onOverlayArrowUpdate: (
+        callback: (arrows: {
+          up: boolean;
+          down: boolean;
+          left: boolean;
+          right: boolean;
+        }) => void
+      ) => void;
+
       // Helltide
-      helltideToggle?: (
+      helltideToggle: (
         feature: string,
         enabled: boolean
       ) => Promise<{ success: boolean }>;
-      onHelltideUpdate?: (callback: (data: EventTimersData) => void) => void;
-      onHelltideStateChange?: (
+      onHelltideUpdate: (callback: (data: EventTimersData) => void) => void;
+      onHelltideStateChange: (
         callback: (state: { feature: string; enabled: boolean }) => void
       ) => void;
-      moveHelltideOverlay?: (
+      moveHelltideOverlay: (
         deltaX: number,
         deltaY: number
       ) => Promise<{ success: boolean }>;
-      setHelltideOverlayFocus?: (focused: boolean) => Promise<void>;
+      setHelltideOverlayFocus: (focused: boolean) => Promise<void>;
 
       // Armory
-      getArmoryAccount?: (battleTag: string) => Promise<any>; // Using any for simplicity in d.ts, or import types
-      getArmoryCharacter?: (battleTag: string, heroId: string) => Promise<any>;
+      getArmoryAccount: (battleTag: string) => Promise<any>;
+      getArmoryCharacter: (battleTag: string, heroId: string) => Promise<any>;
     };
   }
 }

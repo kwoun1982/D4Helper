@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DiabloButton from './ui/DiabloButton';
 import DiabloInput from './ui/DiabloInput';
@@ -77,10 +77,10 @@ export default function ArmoryModal({ isOpen, onClose }: ArmoryModalProps) {
                         value={battleTag}
                         onChange={setBattleTag}
                         placeholder="BattleTag (e.g. Player#1234)"
-                        width="300px"
+                        style={{ width: '300px' }}
                     />
                     <div style={{ width: '10px' }}></div>
-                    <DiabloButton onClick={handleSearch} label="Search" disabled={loading} />
+                    <DiabloButton onClick={handleSearch} disabled={loading}>Search</DiabloButton>
                 </div>
 
                 <div className="armory-body">

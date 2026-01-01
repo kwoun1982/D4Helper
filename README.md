@@ -1,4 +1,4 @@
-# D4 Helper - Sanctuary Edition (v2.1.0)
+# D4 Helper - Sanctuary Edition (v2.2.0)
 
 ![UI Screenshot](./docs/images/ui_screenshot_v2.0.3.png)
 
@@ -144,9 +144,15 @@ bun run electron:build
 
 ---
 
-## 🆕 What's New in v2.1.0
+## 🆕 What's New in v2.2.0
 
-### ✨ 주요 기능 (Key Features)
+### 🛠️ 안정성 및 성능 (Stability & Performance)
+
+- **오버레이 드래그 최적화**: 장시간 사용 시 드래그가 멈추는 현상을 해결했습니다.
+- **GPU 프로세스 안정화**: 윈도우 11 등에서 발생하던 GPU 충돌 문제를 해결했습니다.
+- **크롤러 강화**: 데이터 수집 실패율을 낮추고 안정성을 높였습니다.
+
+### ✨ 주요 기능 (Key Features from v2.1.0)
 
 - **실시간 이벤트 오버레이**: 지옥물결, 월드보스, 군단 타이머 추가
 - **초 단위 카운트다운**: 실시간으로 줄어드는 타이머 표시
@@ -177,6 +183,6 @@ MIT License - 상업적 사용 가능, 수정 및 배포 자유
 
 ---
 
-**Version**: 2.1.0  
+**Version**: 2.2.0  
 **Last Updated**: 2026-01-01  
 **Developer**: WAYNE

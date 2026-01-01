@@ -42,6 +42,7 @@ export default function HelltideOverlayApp() {
     const lastScreenPos = useRef({ x: 0, y: 0 });
     const btnRef = useRef<HTMLDivElement>(null);
     const isInteractiveRef = useRef(false);
+    const lastMoveTime = useRef(0);
 
     // Countdown timer - decrease every second
     useEffect(() => {
@@ -132,8 +133,13 @@ export default function HelltideOverlayApp() {
         }
 
         // Dragging logic - using refs to avoid closure issues
+
         const handleGlobalMouseMove = (e: MouseEvent) => {
             if (isDraggingRef.current && window.electronAPI.moveHelltideOverlay) {
+                const now = Date.now();
+                if (now - lastMoveTime.current < 16) return; // Limit to ~60fps
+                lastMoveTime.current = now;
+
                 const deltaX = e.screenX - lastScreenPos.current.x;
                 const deltaY = e.screenY - lastScreenPos.current.y;
 

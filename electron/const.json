@@ -1,0 +1,8 @@
+{
+  "overlay": {
+    "defaultPosition": { "x": 10, "y": 10 }
+  },
+  "helltideOverlay": {
+    "defaultPosition": { "x": 250, "y": 10 }
+  }
+}

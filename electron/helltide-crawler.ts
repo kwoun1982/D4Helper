@@ -36,7 +36,7 @@ export function startHelltideCrawler(
     setTimeout(() => {
       isPageReady = true;
       extractData();
-    }, 3000);
+    }, 2000); // Reduced wait time to 2s for faster startup
   });
 
   crawlerWindow.webContents.on(
@@ -78,7 +78,7 @@ export function startHelltideCrawler(
   // Start the random interval updates after initial data extraction
   setTimeout(() => {
     scheduleNextUpdate();
-  }, 5000); // Wait 5 seconds after initial load before starting schedule
+  }, 10000); // Wait 10 seconds after initial load before starting schedule
 }
 
 async function extractData() {
@@ -135,12 +135,22 @@ async function extractData() {
         const helltideActiveMatch = bodyText.match(/Time remaining.*?((?:\\d+\\s*hours?,?\\s*)?\\d+\\s*minutes?,?\\s*\\d+\\s*seconds?)/is);
         const helltideUpcomingMatch = bodyText.match(/Starts in.*?((?:\\d+\\s*hours?,?\\s*)?\\d+\\s*minutes?,?\\s*\\d+\\s*seconds?)/is);
         
+        // Try short format matches too
+        const helltideActiveShort = bodyText.match(/Time remaining.*?(\\d+m\\s*\\d+s)/is);
+        const helltideUpcomingShort = bodyText.match(/Starts in.*?(\\d+m\\s*\\d+s)/is);
+
         if (helltideActiveMatch) {
           data.helltide.status = 'Active';
           data.helltide.time = parseMinutesSeconds(helltideActiveMatch[1]) || '--:--';
+        } else if (helltideActiveShort) {
+          data.helltide.status = 'Active';
+          data.helltide.time = parseShortFormat(helltideActiveShort[1]) || '--:--';
         } else if (helltideUpcomingMatch) {
           data.helltide.status = 'Next in';
           data.helltide.time = parseMinutesSeconds(helltideUpcomingMatch[1]) || '--:--';
+        } else if (helltideUpcomingShort) {
+          data.helltide.status = 'Next in';
+          data.helltide.time = parseShortFormat(helltideUpcomingShort[1]) || '--:--';
         }
         
         // ===== WORLD BOSS =====
@@ -183,6 +193,10 @@ async function extractData() {
         console.log('[CRAWLER] WorldBoss:', data.worldBoss);
         console.log('[CRAWLER] Legion:', data.legion);
         
+        if (data.helltide.time === '--:--') {
+            console.log('[CRAWLER] DEBUG - Body Text Snippet:', bodyText.substring(0, 500));
+        }
+
         return data;
       })();
     `);

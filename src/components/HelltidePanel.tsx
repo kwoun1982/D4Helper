@@ -1,4 +1,3 @@
-import React from 'react';
 import './HelltidePanel.css';
 import { EventTimersData } from '../types';
 

@@ -10,6 +10,7 @@ interface DiabloInputProps {
   max?: number;
   readOnly?: boolean;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export default function DiabloInput({
@@ -21,6 +22,7 @@ export default function DiabloInput({
   max,
   readOnly = false,
   className = '',
+  style,
 }: DiabloInputProps) {
   return (
     <input
@@ -32,6 +34,7 @@ export default function DiabloInput({
       max={max}
       readOnly={readOnly}
       className={`diablo-input ${className}`}
+      style={style}
     />
   );
 }
